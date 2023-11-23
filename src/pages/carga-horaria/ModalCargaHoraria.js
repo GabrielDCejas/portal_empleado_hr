@@ -253,7 +253,7 @@ const ModalCargaHoraria = ({ open, handleClose, data, onSubmit, ver = null }) =>
               variant="contained"
               disabled={resultadoNuevaCargaHoraria === "LOADING" || resultadoEditarCargaHoraria === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevaCargaHoraria === "LOADING" ||
                 (resultadoEditarCargaHoraria === "LOADING" && (
                   <CircularProgress

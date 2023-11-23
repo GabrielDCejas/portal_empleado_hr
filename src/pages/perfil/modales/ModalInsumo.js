@@ -198,7 +198,7 @@ const ModalInsumo = ({ open, handleClose, data, onSubmit, ver = null }) => {
               variant="contained"
               disabled={resultadoNuevoInsumo === "LOADING" || resultadoEditarInsumo === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevoInsumo === "LOADING" ||
                 (resultadoEditarInsumo === "LOADING" && (
                   <CircularProgress

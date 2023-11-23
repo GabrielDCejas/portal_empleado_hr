@@ -37,7 +37,7 @@ const styles = {
     position: "relative",
     alignItems: "center",
     justifyContent: "center",
-    backgroundImage: "url(/images/fondo_login.jpg)",
+    backgroundImage: "url(/images/fondo_login.png)",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "cover", // Utiliza 'cover' para que la imagen se ajuste al tamaño del Box

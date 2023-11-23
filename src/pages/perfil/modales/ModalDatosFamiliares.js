@@ -192,7 +192,7 @@ const ModalDatosFamiliares = ({ open, handleClose, data, onSubmit, ver = null })
               variant="contained"
               disabled={resultadoNuevoFamiliar === "LOADING" || resultadoEditarFamiliar === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevoFamiliar === "LOADING" ||
                 (resultadoEditarFamiliar === "LOADING" && (
                   <CircularProgress

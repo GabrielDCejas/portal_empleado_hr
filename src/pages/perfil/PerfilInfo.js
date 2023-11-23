@@ -296,7 +296,7 @@ const PerfilInfo = ({ data, paises, provincias, localidades }) => {
                   variant="contained"
                   disabled={resultadoEditarDatos === "LOADING"}
                 >
-                  Enviar
+                  Guardar
                   {resultadoEditarDatos === "LOADING" && (
                     <CircularProgress
                       size={27}

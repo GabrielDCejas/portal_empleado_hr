@@ -350,7 +350,7 @@ const ModalLicencia = ({ open, handleClose, data, onSubmit, ver = null }) => {
               variant="contained"
               disabled={resultadoNuevaLicencias === "LOADING" || resultadoEditarLicencias === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevaLicencias === "LOADING" ||
                 (resultadoEditarLicencias === "LOADING" && (
                   <CircularProgress

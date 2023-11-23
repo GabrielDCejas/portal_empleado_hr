@@ -184,7 +184,7 @@ const ModalUniversidad = ({ open, handleClose, data, onSubmit, ver = null }) => 
               variant="contained"
               disabled={resultadoNuevaUniversidad === "LOADING" || resultadoEditarUniversidad === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevaUniversidad === "LOADING" ||
                 (resultadoEditarUniversidad === "LOADING" && (
                   <CircularProgress

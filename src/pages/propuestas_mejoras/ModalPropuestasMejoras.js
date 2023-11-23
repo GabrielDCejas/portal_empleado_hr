@@ -125,7 +125,7 @@ const ModalPropuestasMejoras = ({ open, handleClose, data, onSubmit, ver = null 
               variant="contained"
               disabled={loadingNuevaPropuesta === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {loadingNuevaPropuesta === "LOADING" && (
                 <CircularProgress
                   size={27}

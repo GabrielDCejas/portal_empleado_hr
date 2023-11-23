@@ -154,7 +154,7 @@ const ModalTrayectoria = ({ open, handleClose, data, onSubmit, ver = null }) => 
               variant="contained"
               disabled={resultadoNuevaTrayectoria === "LOADING" || resultadoEditarTrayectoria === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevaTrayectoria === "LOADING" ||
                 (resultadoEditarTrayectoria === "LOADING" && (
                   <CircularProgress

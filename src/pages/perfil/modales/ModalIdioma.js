@@ -164,7 +164,7 @@ const ModalIdioma = ({ open, handleClose, data, onSubmit, ver = null }) => {
               variant="contained"
               disabled={resultadoEditarIdioma === "LOADING" || resultadoNuevoIdioma === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoEditarIdioma === "LOADING" ||
                 (resultadoNuevoIdioma === "LOADING" && (
                   <CircularProgress

@@ -38,13 +38,13 @@ const TabList = styled(MuiTabList)(({ theme }) => ({
     color: `${theme.palette.common.white} !important`,
   },
   "& .MuiTab-root": {
-    minWidth: 65,
-    minHeight: 38,
+    minWidth: 60,
+    minHeight: 30,
     paddingTop: theme.spacing(2.5),
     paddingBottom: theme.spacing(2.5),
     borderRadius: theme.shape.borderRadius,
     [theme.breakpoints.up("sm")]: {
-      minWidth: 130,
+      minWidth: 120,
     },
   },
 }));

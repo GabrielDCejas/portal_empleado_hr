@@ -198,7 +198,7 @@ const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
                 variant="contained"
                 disabled={resultadoNuevaAsignaciones === "LOADING" || resultadoEditarAsignaciones === "LOADING"}
               >
-                {ver === "verDatos" ? "Editar" : "Enviar"}
+                {ver === "verDatos" ? "Editar" : "Guardar"}
                 {resultadoNuevaAsignaciones === "LOADING" ||
                   (resultadoEditarAsignaciones === "LOADING" && (
                     <CircularProgress

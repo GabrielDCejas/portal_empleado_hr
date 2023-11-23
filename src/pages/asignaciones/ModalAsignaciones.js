@@ -207,14 +207,14 @@ const ModalAsignaciones = ({ open, handleClose, data, onSubmit, ver = null }) =>
             justifyContent: "flex-start",
           }}
         >
-          {data?.empleadoId == user?.empleadoid && <Box sx={{ mt: 3, mb: 2, position: "relative" }}>
+          <Box sx={{ mt: 3, mb: 2, position: "relative" }}>
             <Button
               type="button"
               onClick={handleSubmit(ver === "verDatos" ? editar : cargar)}
               variant="contained"
               disabled={resultadoNuevaAsignaciones === "LOADING" || resultadoEditarAsignaciones === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevaAsignaciones === "LOADING" ||
                 (resultadoEditarAsignaciones === "LOADING" && (
                   <CircularProgress
@@ -230,7 +230,7 @@ const ModalAsignaciones = ({ open, handleClose, data, onSubmit, ver = null }) =>
                   />
                 ))}
             </Button>
-          </Box>}
+          </Box>
         </DialogActions>
       </Dialog>
     );

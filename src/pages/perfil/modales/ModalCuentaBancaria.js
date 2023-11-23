@@ -180,7 +180,7 @@ const ModalCuentaBancaria = ({ open, handleClose, data, onSubmit, ver = null }) 
               variant="contained"
               disabled={resultadoNuevaCuentaBancaria === "LOADING" || resultadoEditarCuentaBancaria === "LOADING"}
             >
-              {ver === "verDatos" ? "Editar" : "Enviar"}
+              {ver === "verDatos" ? "Editar" : "Guardar"}
               {resultadoNuevaCuentaBancaria === "LOADING" ||
                 (resultadoEditarCuentaBancaria === "LOADING" && (
                   <CircularProgress
