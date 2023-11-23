@@ -15,10 +15,9 @@ import ModalAsignaciones from "./ModalAsignaciones";
 import useCargarAsignacion from "@/hooks/useCargarAsignacion";
 
 const Asignaciones = () => {
-
   const { asignaciones, loadingAsignaciones } = useGetAsignaciones();
 
-  const cargarAsignacion = useCargarAsignacion()
+  const cargarAsignacion = useCargarAsignacion();
 
   const [open, setOpen] = useState(false);
 
@@ -34,20 +33,13 @@ const Asignaciones = () => {
     cargarAsignacion(datos, handleClose);
   };
 
-  const LinkStyled = styled(Link)(({ theme }) => ({
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-  }));
-
   return (
     <>
       <Grid container>
         <PageHeader
           title={
-            <Typography variant="h5">
-              <LinkStyled href="https://mui.com/x/react-data-grid/" target="_blank">
-                Asignaciones
-              </LinkStyled>
+            <Typography variant="h5" sx={{ color: "primary.main", mb: 2 }}>
+              Asignaciones
             </Typography>
           }
         />

@@ -16,10 +16,9 @@ import ModalCargaHoraria from "./ModalCargaHoraria";
 import useCargarHoras from "@/hooks/useCargarHoras";
 
 const CargaHoraria = () => {
+  const { cargasHorarias, loadingCargaHoraria } = useGetHorasCargadas();
 
-  const {cargasHorarias, loadingCargaHoraria} = useGetHorasCargadas()
-
-  const cargarHoras = useCargarHoras()
+  const cargarHoras = useCargarHoras();
 
   const [open, setOpen] = useState(false);
 
@@ -35,42 +34,35 @@ const CargaHoraria = () => {
     cargarHoras(datos, handleClose);
   };
 
-  const LinkStyled = styled(Link)(({ theme }) => ({
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-  }));
-
   return (
     <>
-    <Grid container>
-      <PageHeader
-        title={
-          <Typography variant="h5">
-            <LinkStyled href="https://mui.com/x/react-data-grid/" target="_blank">
+      <Grid container>
+        <PageHeader
+          title={
+            <Typography variant="h5" sx={{ color: "primary.main", mb: 2 }}>
               Carga Horaria
-            </LinkStyled>
-          </Typography>
-        }
-      />
-        <Grid container sx={{mt:2}}>
+            </Typography>
+          }
+        />
+        <Grid container sx={{ mt: 2 }}>
           <Grid item xs={12}>
-              {loadingCargaHoraria ? (
-                <Table
-                  data={cargasHorarias}
-                  columns={COLUMNS_CARGA_HORAS}
-                  name={"Carga Horaria"}
-                  addRow={true}
-                  toggle={openModal}
-                />
-              ) : (
-                <Box sx={{ mt: 6, display: "flex", alignItems: "center", flexDirection: "column" }}>
-                  <CircularProgress sx={{ mb: 4 }} />
-                </Box>
-              )}
+            {loadingCargaHoraria ? (
+              <Table
+                data={cargasHorarias}
+                columns={COLUMNS_CARGA_HORAS}
+                name={"Carga Horaria"}
+                addRow={true}
+                toggle={openModal}
+              />
+            ) : (
+              <Box sx={{ mt: 6, display: "flex", alignItems: "center", flexDirection: "column" }}>
+                <CircularProgress sx={{ mb: 4 }} />
+              </Box>
+            )}
           </Grid>
         </Grid>
-    </Grid>
-    {open && <ModalCargaHoraria open={open} data={null} handleClose={handleClose} onSubmit={handleCargar} />}
+      </Grid>
+      {open && <ModalCargaHoraria open={open} data={null} handleClose={handleClose} onSubmit={handleCargar} />}
     </>
   );
 };

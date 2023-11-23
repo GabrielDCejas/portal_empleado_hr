@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, Avatar, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Avatar, Grid, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
@@ -25,12 +25,15 @@ const OrganigramaArbol = ({ organigrama }) => {
       key={node.IdArbol}
       style={{ justifyContent: "center" }}
       label={
-        <div style={{ textAlign: "center" }}>
+        <Box
+          component="div"
+          sx={{ textAlign: "center", overflowX: "auto", ...(node.unidadSuperiorId === null && { margin: "auto" }) }}
+        >
           <Grid container direction="column" alignItems="center">
-            <Card sx={{ width: "200px", margin: "8px", textAlign: "center" }}>
+            <Card sx={{ width: "170px", margin: "8px", textAlign: "center" }}>
               <CardContent>
                 <Avatar src={node?.foto} sx={{ width: "60px", height: "60px", margin: "auto" }} />
-                <Typography variant="subtitle1" sx={{ mt: 1 }}>
+                <Typography variant="subtitle2" sx={{ mt: 1 }}>
                   {node.puesto}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
@@ -40,7 +43,7 @@ const OrganigramaArbol = ({ organigrama }) => {
             </Card>
             {hasDescendants(node) && <div style={{ width: "2px", height: "20px", background: "#ccc" }} />}
           </Grid>
-        </div>
+        </Box>
       }
     >
       {organigrama.filter((item) => item.unidadSuperiorId === node.IdArbol).map(renderNode)}
@@ -48,22 +51,25 @@ const OrganigramaArbol = ({ organigrama }) => {
   );
 
   return (
-    <Grid container sx={{ mt: 2 }} justifyContent="center" alignItems="center">
-      <Grid item xs={12} sx={{ alignItems: "center", overflow: "auto" }}>
-        <Tree
-          label={
-            <Typography variant="h5" color="inherit">
-              Organigrama
-            </Typography>
-          }
-          lineColor="#ccc"
-          ineWidth="2px"
-        >
-          {root ? renderNode(root) : null}
-        </Tree>
+    <Grid container sx={{ mt: 2 }}>
+      <Grid item xs={18} sx={{ display: "flex", justifyContent: "center", alignItems: "center", overflowX: "auto" }}>
+        <div style={{ overflowX: "auto", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Tree
+            label={
+              <Typography variant="h5" color="inherit">
+                Organigrama
+              </Typography>
+            }
+            lineColor="#ccc"
+            ineWidth="2px"
+          >
+            {root ? renderNode(root) : null}
+          </Tree>
+        </div>
       </Grid>
     </Grid>
   );
 };
 
 export default OrganigramaArbol;
+

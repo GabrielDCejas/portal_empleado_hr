@@ -64,11 +64,6 @@ const Licencias = () => {
     },
   }));
 
-  const LinkStyled = styled(Link)(({ theme }) => ({
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-  }));
-
   const handleChange = (event, value) => {
     setActiveTab(value);
   };
@@ -78,10 +73,8 @@ const Licencias = () => {
       <Grid container>
         <PageHeader
           title={
-            <Typography variant="h5">
-              <LinkStyled href="https://mui.com/x/react-data-grid/" target="_blank">
-                Licencias
-              </LinkStyled>
+            <Typography variant="h5" sx={{ color: "primary.main", mb: 2 }}>
+              Licencias
             </Typography>
           }
         />

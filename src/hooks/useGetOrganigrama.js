@@ -19,8 +19,6 @@ const useGetOrganigrama = () => {
     dispatch(obtenerUsuariosFirebase());
   }, []);
 
-  console.log("organigramaRedux", organigramaRedux)
-
   useEffect(() => {
     if (organigramaRedux?.length > 0 && fotosUsuario?.length > 0 && loadingOrganigramaSelect) {
       const organigrama = [];

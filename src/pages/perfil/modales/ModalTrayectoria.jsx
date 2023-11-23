@@ -51,7 +51,6 @@ const ModalTrayectoria = ({ open, handleClose, data, onSubmit, ver = null }) => 
     resolver: yupResolver(validacionSchema),
   });
 
-  console.log("data", data)
   useEffect(() => {
     if (data && Object.keys(data).length > 0) {
       Object.keys(data).forEach((key) => {

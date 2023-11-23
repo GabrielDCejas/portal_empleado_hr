@@ -24,10 +24,9 @@ const AppBarContent = (props) => {
             <Icon icon="mdi:menu" />
           </IconButton>
         ) : null}
-        {settings.mode === "dark" ? <Image src={hero} width={220} /> : <Image src={heroNegro} width={220} />}
+         <ModeToggler settings={settings} saveSettings={saveSettings} />
       </Box>
       <Box className="actions-right" sx={{ display: "flex", alignItems: "center" }}>
-        <ModeToggler settings={settings} saveSettings={saveSettings} />
         <UserDropdown settings={settings} />
       </Box>
     </Box>

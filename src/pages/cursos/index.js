@@ -14,40 +14,28 @@ import useGetCursos from "@/hooks/useGetCursos";
 import { COLUMNS_CURSOS } from "@/columns/columnsCursos";
 
 const Cursos = () => {
-
-  const {cursos, loadingCursos} = useGetCursos()
-
-  const LinkStyled = styled(Link)(({ theme }) => ({
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-  }));
+  const { cursos, loadingCursos } = useGetCursos();
 
   return (
     <Grid container>
       <PageHeader
         title={
-          <Typography variant="h5">
-            <LinkStyled href="https://mui.com/x/react-data-grid/" target="_blank">
-              Cursos
-            </LinkStyled>
+          <Typography variant="h5" sx={{ color: "primary.main", mb: 2 }}>
+            Cursos
           </Typography>
         }
       />
-        <Grid container sx={{mt:2}}>
-          <Grid item xs={12}>
-              {loadingCursos ? (
-                <Table
-                  data={cursos}
-                  columns={COLUMNS_CURSOS}
-                  name={"Cursos"}
-                />
-              ) : (
-                <Box sx={{ mt: 6, display: "flex", alignItems: "center", flexDirection: "column" }}>
-                  <CircularProgress sx={{ mb: 4 }} />
-                </Box>
-              )}
-          </Grid>
+      <Grid container sx={{ mt: 2 }}>
+        <Grid item xs={12}>
+          {loadingCursos ? (
+            <Table data={cursos} columns={COLUMNS_CURSOS} name={"Cursos"} />
+          ) : (
+            <Box sx={{ mt: 6, display: "flex", alignItems: "center", flexDirection: "column" }}>
+              <CircularProgress sx={{ mb: 4 }} />
+            </Box>
+          )}
         </Grid>
+      </Grid>
     </Grid>
   );
 };

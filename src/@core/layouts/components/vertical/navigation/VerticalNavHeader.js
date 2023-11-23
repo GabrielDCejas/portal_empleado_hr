@@ -14,6 +14,8 @@ import Icon from "../../../../../@core/components/icon";
 import themeConfig from "../../../../../configs/themeConfig";
 import Image from "next/image";
 import logo from "../../../../../../public/images/Logo-human.png";
+import hero from "../../../../../../public/images/Logo-Human-Blanco.png";
+import heroNegro from "../../../../../../public/images/Human Negro.png";
 
 // ** Styled Components
 const MenuHeaderWrapper = styled(Box)(({ theme }) => ({
@@ -79,10 +81,13 @@ const VerticalNavHeader = (props) => {
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href="/">
-          <Image src={logo} alt="Logo" width={30} height={30} />
-          <HeaderTitle variant="h7" sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 3 }) }}>
-            <Typography sx={{ fontSize: ".75rem" }}>{themeConfig.templateName}</Typography>
-          </HeaderTitle>
+          {navCollapsed && !navHover ? (
+            <Image src={logo} alt="Logo" width={30} height={30} />
+          ) : settings.mode === "dark" ? (
+            <Image src={hero} width={175} alt="Logo" />
+          ) : (
+            <Image src={heroNegro} width={175} alt="Logo" />
+          )}
         </LinkStyled>
       )}
 

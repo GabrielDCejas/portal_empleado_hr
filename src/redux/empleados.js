@@ -985,7 +985,6 @@ export const setDatosEmpleado = (empleadoid, token, datos) => async (dispatch) =
     resultado: "LOADING",
   });
   ToastLoading("Procesando...");
-  console.log("datos", datos)
   return new Promise((resolve, reject) => {
     if (Object.keys(datos).length > 0 && token) {
       axios.put(

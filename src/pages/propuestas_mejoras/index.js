@@ -18,7 +18,7 @@ import useCargaPropuestaMejora from "@/hooks/useCargaPropuestaMejora";
 const PropuestasMejoras = () => {
   const { propuestasMejoras, loadingPropuestasMejoras } = useGetPropuestasMejoras();
 
-  const cargarPropuestasMejoras = useCargaPropuestaMejora()
+  const cargarPropuestasMejoras = useCargaPropuestaMejora();
 
   const [open, setOpen] = useState(false);
 
@@ -34,20 +34,13 @@ const PropuestasMejoras = () => {
     cargarPropuestasMejoras(datos, handleClose);
   };
 
-  const LinkStyled = styled(Link)(({ theme }) => ({
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-  }));
-
   return (
     <>
       <Grid container>
         <PageHeader
           title={
-            <Typography variant="h5">
-              <LinkStyled href="https://mui.com/x/react-data-grid/" target="_blank">
-                Propuestas y Mejoras
-              </LinkStyled>
+            <Typography variant="h5" sx={{ color: "primary.main", mb: 2 }}>
+              Propuestas y Mejoras
             </Typography>
           }
           subtitle={

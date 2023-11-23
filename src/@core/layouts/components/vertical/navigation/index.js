@@ -169,7 +169,7 @@ const Navigation = (props) => {
         {afterNavMenuContent && afterVerticalNavMenuContentPosition === "fixed"
           ? afterNavMenuContent(navMenuContentProps)
           : null}
-        {!navCollapsed && (
+        {(!navCollapsed || navHover) && (
           <Box
             sx={{
               position: "absolute",

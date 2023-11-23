@@ -25,11 +25,6 @@ const Tablas = () => {
   const hideText = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const { organigrama, loadingOrganigrama } = useGetOrganigrama();
 
-  const LinkStyled = styled(Link)(({ theme }) => ({
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-  }));
-
   const TabList = styled(MuiTabList)(({ theme }) => ({
     "& .MuiTabs-indicator": {
       display: "none",
@@ -58,10 +53,8 @@ const Tablas = () => {
     <Grid container>
       <PageHeader
         title={
-          <Typography variant="h5">
-            <LinkStyled href="https://mui.com/x/react-data-grid/" target="_blank">
-              Organigrama
-            </LinkStyled>
+          <Typography variant="h5" sx={{ color: "primary.main", mb: 2 }}>
+            Organigrama
           </Typography>
         }
       />
@@ -78,8 +71,8 @@ const Tablas = () => {
                 value="1"
                 label={
                   <Box sx={{ display: "flex", alignItems: "center", ...(!hideText && { "& svg": { mr: 2 } }) }}>
-                    <Icon fontSize={18} icon="uiw:table" />
-                    {!hideText && "Tipo tabla"}
+                    <Icon fontSize={18} icon="bi:diagram-3" />
+                    {!hideText && "Tipo Arbol"}
                   </Box>
                 }
               />
@@ -87,8 +80,8 @@ const Tablas = () => {
                 value="2"
                 label={
                   <Box sx={{ display: "flex", alignItems: "center", ...(!hideText && { "& svg": { mr: 2 } }) }}>
-                    <Icon fontSize={18} icon="bi:diagram-3" />
-                    {!hideText && "Tipo Arbol"}
+                    <Icon fontSize={18} icon="uiw:table" />
+                    {!hideText && "Tipo tabla"}
                   </Box>
                 }
               />
@@ -96,6 +89,9 @@ const Tablas = () => {
           </Grid>
           <Grid item xs={12}>
             <TabPanel sx={{ p: 0 }} value="1">
+              <OrganigramaArbol organigrama={organigrama} />
+            </TabPanel>
+            <TabPanel sx={{ p: 0 }} value="2">
               {loadingOrganigrama ? (
                 <Table data={organigrama} columns={COLUMNS_ORGANIGRAMA} name={"Organigrama"} />
               ) : (
@@ -103,9 +99,6 @@ const Tablas = () => {
                   <CircularProgress sx={{ mb: 4 }} />
                 </Box>
               )}
-            </TabPanel>
-            <TabPanel sx={{ p: 0 }} value="2">
-              <OrganigramaArbol organigrama={organigrama}/>
             </TabPanel>
           </Grid>
         </Grid>
