@@ -9,6 +9,7 @@ import asignacionesReducers from "@/redux/asignacion";
 import cargasCursosReducers from "@/redux/cursos";
 import usuariosFirebaseReducer from "@/redux/usuariosFirebase";
 import propuestaReducers from "@/redux/propuestaMejoras";
+import evaluacionesReducers from "@/redux/evaluaciones";
 
 const middleware = [thunk];
 const composeEnhancers = (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
@@ -23,7 +24,8 @@ const store = createStore(
     asignaciones: asignacionesReducers,
     cursos: cargasCursosReducers,
     usuariosFirebase: usuariosFirebaseReducer,
-    propuesta: propuestaReducers
+    propuesta: propuestaReducers,
+    evaluaciones: evaluacionesReducers
   }),
   composeEnhancers(applyMiddleware(...middleware))
 );

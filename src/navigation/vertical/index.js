@@ -40,6 +40,17 @@ const navigation = () => {
         icon: 'tabler:message-plus',
         path: '/propuestas_mejoras'
       },
+      {
+        title: 'Evaluaciones',
+        icon: 'carbon:chart-evaluation',
+        children: [
+          {
+            title: "Evaluaciones de PGD",
+            icon: "material-symbols-light:rate-review-outline",
+            path: "/evaluaciones",
+          },
+        ]
+      },
       
     ]
   }
