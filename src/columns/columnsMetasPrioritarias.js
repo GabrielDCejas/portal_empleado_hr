@@ -6,8 +6,8 @@ import CustomAvatar from "@/@core/components/mui/avatar";
 import { getInitials } from "@/@core/utils/get-initials";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
-import ModalObjetivos from "@/pages/evaluaciones/modales/ModalObjetivos";
-import { eliminarObjetivo, getObjetivosPGD } from "@/redux/evaluaciones";
+import ModalItemsEvaluacion from "@/pages/evaluaciones/modales/ModalItemsEvaluacion";
+import { eliminarItemsEvaluacion, getItemsEvaluacion } from "@/redux/evaluaciones";
 
 const renderClient = (params) => {
   const { row } = params;
@@ -55,9 +55,9 @@ const RowOptions = (objeto) => {
   };
 
   const deleteRow = () => {
-    dispatch(eliminarObjetivo(token, objeto?.id))
+    dispatch(eliminarItemsEvaluacion(token, objeto?.id))
       .then((id) => {
-        dispatch(getObjetivosPGD(token, objeto?.evaluacion_pgd_id));
+        dispatch(getItemsEvaluacion(token, objeto?.evaluacion_pgd_id));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -102,7 +102,7 @@ const RowOptions = (objeto) => {
         </MenuItem>
       </Menu>
       {open && (
-        <ModalObjetivos
+        <ModalItemsEvaluacion
           open={open}
           data={objeto}
           handleClose={handleClose}
@@ -115,7 +115,7 @@ const RowOptions = (objeto) => {
   );
 };
 
-export const COLUMNS_OBJETIVOS_PGD = [
+export const COLUMNS_METAS_PRIORITARIAS = [
   {
     flex: 0.1,
     minWidth: 150,
@@ -129,8 +129,8 @@ export const COLUMNS_OBJETIVOS_PGD = [
   {
     flex: 0.275,
     minWidth: 250,
-    field: "Objetivo",
-    headerName: "nombre",
+    field: "nombre",
+    headerName: "Meta prioritaria ¿Qué busco lograr?",
     renderCell: (params) => (
       <Tooltip title={params.row.nombre}>
         <Typography variant="body2" sx={{ color: "text.primary" }}>
@@ -142,77 +142,55 @@ export const COLUMNS_OBJETIVOS_PGD = [
   {
     flex: 0.275,
     minWidth: 175,
-    field: "fecha_creacion",
-    headerName: "Fecha de creación",
+    field: "accion",
+    headerName: "Acción",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.fecha_creacion}
+        {params.row.accion}
       </Typography>
     ),
   },
   {
     flex: 0.275,
     minWidth: 175,
-    field: "fecha_cumplimiento",
-    headerName: "Fecha de cumplimiento",
+    field: "evidencia",
+    headerName: "Evidencia",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.fecha_cumplimiento}
+        {params.row.evidencia}
       </Typography>
     ),
   },
   {
     flex: 0.275,
     minWidth: 175,
-    field: "ponderacion_lider",
-    headerName: "Ponderacion Líder",
+    field: "fecha_desde",
+    headerName: "Fecha Desde",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.ponderacion_lider}
+        {params.row.fecha_desde}
       </Typography>
     ),
   },
   {
     flex: 0.275,
     minWidth: 175,
-    field: "indicador",
-    headerName: "Indicador",
+    field: "fechas_hasta",
+    headerName: "Fecha Hasta",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.indicador}
+        {params.row.fechas_hasta}
       </Typography>
     ),
   },
   {
     flex: 0.275,
     minWidth: 175,
-    field: "status",
-    headerName: "Status",
+    field: "razon_estado",
+    headerName: "Razón para el estado",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.status}
-      </Typography>
-    ),
-  },
-  {
-    flex: 0.275,
-    minWidth: 174,
-    field: "porcentaje_avance",
-    headerName: "% de Avance",
-    renderCell: (params) => (
-      <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.porcentaje_avance}
-      </Typography>
-    ),
-  },
-  {
-    flex: 0.275,
-    minWidth: 200,
-    field: "estado_objetivo",
-    headerName: "Estado del Objetivo",
-    renderCell: (params) => (
-      <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.estado_objetivo}
+        {params.row.razon_estado}
       </Typography>
     ),
   },

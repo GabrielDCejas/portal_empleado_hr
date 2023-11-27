@@ -4,11 +4,10 @@ import { useContext, useState } from "react";
 import CustomAvatar from "@/@core/components/mui/avatar";
 // ** Next Imports
 import { getInitials } from "@/@core/utils/get-initials";
-import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
-import { eliminarAsignacion, getAsignaciones } from "@/redux/asignacion";
-import ModalEvaluacionPGD from "@/pages/evaluaciones/modales/ModalEvaluacionPGD";
+import ModalItemsEvaluacion from "@/pages/evaluaciones/modales/ModalItemsEvaluacion";
+import { eliminarItemsEvaluacion, getItemsEvaluacion } from "@/redux/evaluaciones";
 
 const renderClient = (params) => {
   const { row } = params;
@@ -55,9 +54,9 @@ const RowOptions = (objeto) => {
   };
 
   const deleteRow = () => {
-    dispatch(eliminarAsignacion(token, objeto?.id))
+    dispatch(eliminarItemsEvaluacion(token, objeto?.id))
       .then((id) => {
-        dispatch(getAsignaciones(token));
+        dispatch(getItemsEvaluacion(token, objeto?.evaluacion_pgd_id));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -67,16 +66,20 @@ const RowOptions = (objeto) => {
 
   return (
     <>
-      <Tooltip title="Ver">
-        <IconButton size="small" onClick={verTRayectoria}>
-          <Icon icon="mdi:eye-outline" fontSize={20} />
-        </IconButton>
-      </Tooltip>
-        <Tooltip title="Eliminar">
-          <IconButton size="small" onClick={handleRowOptionsClick}>
-            <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "red" }} />
-          </IconButton>
-        </Tooltip>
+      {objeto?.lider_id == user?.empleadoid && (
+        <>
+          <Tooltip title="Ver">
+            <IconButton size="small" onClick={verTRayectoria}>
+              <Icon icon="mdi:eye-outline" fontSize={20} />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Eliminar">
+            <IconButton size="small" onClick={handleRowOptionsClick}>
+              <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "red" }} />
+            </IconButton>
+          </Tooltip>
+        </>
+      )}
       <Menu
         keepMounted
         anchorEl={anchorEl}
@@ -97,22 +100,31 @@ const RowOptions = (objeto) => {
           Desea eliminar este registro ?
         </MenuItem>
       </Menu>
-      {open && <ModalEvaluacionPGD open={open} data={objeto} handleClose={handleClose} />}
+      {open && (
+        <ModalItemsEvaluacion
+          open={open}
+          data={objeto}
+          handleClose={handleClose}
+          evaluacionPgdId={objeto?.evaluacion_pgd_id}
+          liderId={objeto?.lider_id}
+          ver="verDatos"
+        />
+      )}
     </>
   );
 };
 
 export const COLUMNS_ITEMS_EVALUACION = [
-//   {
-//     flex: 0.1,
-//     minWidth: 150,
-//     field: "actions",
-//     headerName: "Acciones",
-//     renderCell: (params) => {
-//       const { row } = params;
-//       return RowOptions(row);
-//     },
-//   },
+  {
+    flex: 0.1,
+    minWidth: 150,
+    field: "actions",
+    headerName: "Acciones",
+    renderCell: (params) => {
+      const { row } = params;
+      return RowOptions(row);
+    },
+  },
   {
     flex: 0.275,
     minWidth: 250,

@@ -29,6 +29,14 @@ const dataInicial = {
   loadingPeriodos: false,
   empleados: [],
   loadingEmpleados: false,
+  perpectivaNegocios: [],
+  loadingPerpectivaNegocios: false,
+  objetivosEvaluacion: [],
+  loadingObjetivosEvaluacion: false,
+  loadingCompetencias: false,
+  competencias: "",
+  loadingPlanSucesion:false,
+  planSucesion:"",
 };
 
 const GET_PAISES_LOADING = "GET_PAISES_LOADING";
@@ -82,12 +90,30 @@ const GET_NOTICIAS_ERROR = "GET_NOTICIAS_ERROR";
 const GET_ROL_PROYECTO_LOADING = "GET_ROL_PROYECTO_LOADING";
 const GET_ROL_PROYECTO_EXITO = "GET_ROL_PROYECTO_EXITO";
 const GET_ROL_PROYECTO_ERROR = "GET_ROL_PROYECTO_ERROR";
+
 const GET_PERIODOS_LOADING = "GET_PERIODOS_LOADING";
 const GET_PERIODOS_EXITO = "GET_PERIODOS_EXITO";
 const GET_PERIODOS_ERROR = "GET_PERIODOS_ERROR";
+
 const GET_EMPLEADOS_LOADING = "GET_EMPLEADOS_LOADING";
 const GET_EMPLEADOS_EXITO = "GET_EMPLEADOS_EXITO";
 const GET_EMPLEADOS_ERROR = "GET_EMPLEADOS_ERROR";
+
+const GET_PERSPECTIVA_NEGOCIOS_LOADING = "GET_PERSPECTIVA_NEGOCIOS_LOADING";
+const GET_PERSPECTIVA_NEGOCIOS_EXITO = "GET_PERSPECTIVA_NEGOCIOS_EXITO";
+const GET_PERSPECTIVA_NEGOCIOS_ERROR = "GET_PERSPECTIVA_NEGOCIOS_ERROR";
+
+const GET_OBJETIVO_EVALUACION_LOADING = "GET_OBJETIVO_EVALUACION_LOADING";
+const GET_OBJETIVO_EVALUACION_EXITO = "GET_OBJETIVO_EVALUACION_EXITO";
+const GET_OBJETIVO_EVALUACION_ERROR = "GET_OBJETIVO_EVALUACION_ERROR";
+
+const GET_COMPETENCIAS_LOADING = "GET_COMPETENCIAS_LOADING";
+const GET_COMPETENCIAS_EXITO = "GET_COMPETENCIAS_EXITO";
+const GET_COMPETENCIAS_ERROR = "GET_COMPETENCIAS_ERROR";
+
+const GET_PLAN_SUCESION_LOADING = "GET_PLAN_SUCESION_LOADING";
+const GET_PLAN_SUCESION_EXITO = "GET_PLAN_SUCESION_EXITO";
+const GET_PLAN_SUCESION_ERROR = "GET_PLAN_SUCESION_ERROR";
 
 export default function dataVariosReducers(state = dataInicial, action) {
   switch (action.type) {
@@ -177,6 +203,46 @@ export default function dataVariosReducers(state = dataInicial, action) {
       };
     case GET_EMPLEADOS_ERROR:
       return { ...state, loadingEmpleados: action.loading };
+    case GET_PERSPECTIVA_NEGOCIOS_LOADING:
+      return { ...state, loadingPerpectivaNegocios: action.loading };
+    case GET_PERSPECTIVA_NEGOCIOS_EXITO:
+      return {
+        ...state,
+        perpectivaNegocios: action.payload,
+        loadingPerpectivaNegocios: action.loading,
+      };
+    case GET_PERSPECTIVA_NEGOCIOS_ERROR:
+      return { ...state, loadingPerpectivaNegocios: action.loading };
+    case GET_OBJETIVO_EVALUACION_LOADING:
+      return { ...state, loadingObjetivosEvaluacion: action.loading };
+    case GET_OBJETIVO_EVALUACION_EXITO:
+      return {
+        ...state,
+        objetivosEvaluacion: action.payload,
+        loadingObjetivosEvaluacion: action.loading,
+      };
+    case GET_OBJETIVO_EVALUACION_ERROR:
+      return { ...state, loadingObjetivosEvaluacion: action.loading };
+    case GET_COMPETENCIAS_LOADING:
+      return { ...state, loadingCompetencias: action.loading };
+    case GET_COMPETENCIAS_EXITO:
+      return {
+        ...state,
+        competencias: action.payload,
+        loadingCompetencias: action.loading,
+      };
+    case GET_COMPETENCIAS_ERROR:
+      return { ...state, loadingCompetencias: action.loading };
+    case GET_PLAN_SUCESION_LOADING:
+      return { ...state, loadingPlanSucesion: action.loading };
+    case GET_PLAN_SUCESION_EXITO:
+      return {
+        ...state,
+        planSucesion: action.payload,
+        loadingPlanSucesion: action.loading,
+      };
+    case GET_PLAN_SUCESION_ERROR:
+      return { ...state, loadingPlanSucesion: action.loading };
     default:
       return { ...state };
   }
@@ -1115,6 +1181,206 @@ export const getEmpleados = (token) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: GET_EMPLEADOS_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getPerspectivaNegocios = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_PERSPECTIVA_NEGOCIOS_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_perspectivadenegocios";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_perspectivadenegocio">
+      <attribute name="new_perspectivadenegocioid" />
+      <attribute name="new_name" />
+      <attribute name="createdon" />
+      <order attribute="new_name" descending="false" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+      </filter>
+    </entity>
+  </fetch>
+    `;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_PERSPECTIVA_NEGOCIOS_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_PERSPECTIVA_NEGOCIOS_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getObjetivoEvaluacion = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_OBJETIVO_EVALUACION_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_objetivodeevaluacions";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_objetivodeevaluacion">
+      <attribute name="new_perspectivadenegocio" />
+      <attribute name="statuscode" />
+      <attribute name="new_plazo" />
+      <attribute name="new_objetivodeevaluacionid" />
+      <order attribute="new_name" descending="false" />
+      <filter type="and">
+        <condition attribute="new_tipodeobjetivo" operator="eq" value="100000000" />
+      </filter>
+    </entity>
+  </fetch>`;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_OBJETIVO_EVALUACION_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_OBJETIVO_EVALUACION_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getCompetencias = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_COMPETENCIAS_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_competencias";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_competencia">
+      <attribute name="new_competenciaid" />
+      <attribute name="new_name" />
+      <attribute name="createdon" />
+      <order attribute="new_name" descending="false" />
+    </entity>
+  </fetch>`;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_COMPETENCIAS_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_COMPETENCIAS_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getPlanSucesion = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_PLAN_SUCESION_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_plandesucesions";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+    <entity name="new_plandesucesion">
+      <attribute name="new_empleadoclave" />
+      <attribute name="statuscode" />
+      <attribute name="new_valoracionpersonal" />
+      <attribute name="new_puntajeparalasucesion" />
+      <attribute name="new_plandesucesionid" />
+      <attribute name="createdon" />
+      <order attribute="new_empleadoclave" descending="true" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+      </filter>
+      <link-entity name="new_itemdeevaluaciondedesempeo" from="new_plandesucesin" to="new_plandesucesionid" link-type="inner" alias="itemde_evaluacion_desempeo" />
+    </entity>
+  </fetch>
+  `;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_PLAN_SUCESION_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_PLAN_SUCESION_ERROR,
         loading: true,
       });
     }
