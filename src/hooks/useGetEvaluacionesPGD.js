@@ -36,6 +36,7 @@ const useGetEvaluacionesPGD = () => {
           unidad_organizativa: items["_new_unidadorganizativadirecta_value@OData.Community.Display.V1.FormattedValue"],
           numero_legajo_lider: items["empleadoid.new_numerolegajo"],
           lider: items["_new_lder_value@OData.Community.Display.V1.FormattedValue"],
+          liderId: items["_new_lder_value"],
           instancia: items["statuscode@OData.Community.Display.V1.FormattedValue"],
           estado_autoevaluacion: items["new_estadodelaautoevaluacin@OData.Community.Display.V1.FormattedValue"],
           estado_evaluacion_lider: items["new_estadodelaevaluacindellder@OData.Community.Display.V1.FormattedValue"],
@@ -51,6 +52,11 @@ const useGetEvaluacionesPGD = () => {
           cantidad_competencias: items["new_cantidadcompetencias@OData.Community.Display.V1.FormattedValue"],
           puntaje_evaluacion_pgd_lider: items["new_puntajeevaluacionpgd@OData.Community.Display.V1.FormattedValue"],
           puntaje_ideal_competencias: items["new_puntajeidealcompetencias@OData.Community.Display.V1.FormattedValue"],
+          comentariosyobservacionesdelaevaluacion : items["new_comentariosyobservacionesdelaevaluacion"],
+          mi_proposito: items["new_miproposito"],
+          comentarios_obervaciones_proposito: items["new_comentariosyobervacionesdesupropsito"],
+          nuevo_proposito: items["new_nuevoproposito"],
+          comentariosyobservacionesaspeval: items["new_comentariosyobservacionesaspeval"],
         };
         evaluacion.push(item);
       });

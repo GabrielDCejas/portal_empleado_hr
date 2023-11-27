@@ -48,8 +48,8 @@ const General = ({ data }) => {
 
   if (data) {
     return (
-      <Grid container spacing={2}>
-        <Grid item lg={12} md={12} xs={12}>
+      <Grid container spacing={2} >
+        <Grid item lg={12} md={12} xs={12} sx={{mx: {xs: 0, sm:"5vw"}}}>
           <FormProvider {...methods}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>

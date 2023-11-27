@@ -21,33 +21,34 @@ import Icon from "src/@core/components/icon";
 import CustomSearchSelect from "@/@core/components/customFields/CustomSearchSelect";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
 import CustomTextField from "@/@core/components/customFields/CustomTextField";
+import CustomDateField from "@/@core/components/customFields/CustomDateField";
 import { AuthContext } from "@/context/AuthContext";
+import useGetPerpesctivaNegocios from "@/hooks/useGetPerpesctivaNegocios";
+import useGetObjetivosEvaluacion from "@/hooks/useGetObjetivosEvaluacion";
+import useEditarObjetivo from "@/hooks/useEditarObjetivo";
 
-const validacionSchema = yup.object().shape({
-  nombre: yup.string().required("El nombre es requerido"),
-  accionModal: yup.object({
-    value: yup.string().required("La accion es requerido"),
-  }),
-  duracionHoras: yup.string().required("La Duracion en horas es requerido"),
-});
+// const validacionSchema = yup.object().shape({
+//   objetivo: yup.string().required("El objetivo es requerido"),
+// });
 
-const accionOpciones = [
-  { value: 100000000, label: "Capacitacion" },
-  { value: 100000001, label: "Desarrollo" },
-  { value: 100000002, label: "Evaluacion" },
-  { value: 100000003, label: "Fidelizacion" },
-  { value: 100000004, label: "Refuerzo" },
-  { value: 100000008, label: "Opcional" },
+const opcionesTipoobjetivo = [
+  { value: 100000000, label: "Estrategicos" },
+  { value: 100000001, label: "Gerencia/Sector" },
+  { value: 100000002, label: "Individuales" },
 ];
 
-const tipoOpciones = [
-  { value: 1, label: "Si" },
-  { value: 0, label: "No" },
-];
-
-const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
+const ModalObjetivos = ({ open, handleClose, data, onSubmit, ver = null, liderId, evaluacionPgdId = null }) => {
   const { user } = useContext(AuthContext);
+
+  const editarObjetivo = useEditarObjetivo()
+
+  const loadingCargarObjetivo = useSelector((store) => store.evaluaciones.loadingCargarObjetivo);
+  const loadingEditarObjetivo = useSelector((store) => store.evaluaciones.loadingEditarObjetivo);
+
+  const { perpectivaNegocios } = useGetPerpesctivaNegocios();
+  const { objetivosEvaluacion } = useGetObjetivosEvaluacion();
 
   const [fullWidth, setFullWidth] = useState(true);
   const [maxWidth, setMaxWidth] = useState("md");
@@ -56,17 +57,16 @@ const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
     shouldUnregister: false,
     mode: "onChange",
     defaultValues: {
-      nombre: null,
-      accionModal: null,
-      duracionHoras: null,
-      elearningModal: null,
-      internaModal: null,
-      inCompanyModal: null,
-      externaModal: null,
-      objetivo: null,
-      contenido: null,
+      tipoObjetivo: null,
+      perspectivaNegocio: null,
+      plazo: null,
+      ponderacion_lider: null,
+      fuenteMedicion: null,
+      piso: null,
+      target: null,
+      techo: null,
+      objetivoPrimario: null,
     },
-    resolver: yupResolver(validacionSchema),
   });
 
   useEffect(() => {
@@ -80,7 +80,9 @@ const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
   const cargar = (datos) => {
     onSubmit(datos);
   };
-  const editar = (datos) => {};
+  const editar = (datos) => {
+    editarObjetivo(datos, evaluacionPgdId)
+  };
 
   if (open) {
     return (
@@ -100,7 +102,9 @@ const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
               alignItems: "center",
             }}
           >
-            <DialogTitle id="responsive-dialog-title">{ver === "verDatos" ? "Curso" : "Nueva Curso"}</DialogTitle>
+            <DialogTitle id="responsive-dialog-title">
+              {ver === "verDatos" ? "Objetivo" : "Creación Objetivo Evaluado"}
+            </DialogTitle>
             <Tooltip title={<Typography sx={{ color: "#fff" }}>Cerrar</Typography>}>
               <IconButton edge="end" color="warning" onClick={handleClose} aria-label="close" sx={{ mr: 2 }}>
                 <Icon color="red" icon="material-symbols:close" />
@@ -112,89 +116,84 @@ const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
           <DialogContentText>
             <FormProvider {...methods}>
               <Grid container spacing="2">
+                <Grid item xs={12}>
+                  <Typography variant="caption" sx={{ textTransform: "uppercase" }}>
+                    General
+                  </Typography>
+                </Grid>
                 <Grid item xs={12} sm={6}>
-                  <CustomTextField
-                    Component={TextField}
-                    req="true"
+                  <CustomSearchSelect
+                    options={objetivosEvaluacion}
                     type="text"
-                    label="Nombre"
-                    name="nombre"
-                    helperText={"El nombre es requerido"}
+                    name="objetivoPrimario"
+                    lab="Objetivo Primario"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <CustomSearchSelect
-                    options={accionOpciones}
-                    req="true"
+                    options={opcionesTipoobjetivo}
                     type="text"
-                    name="accionModal"
-                    lab="Acción"
-                    helperText={"La acción es requerido"}
+                    name="tipoObjetivo"
+                    lab="Tipo de objetivo"
                   />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <CustomSearchSelect
+                    options={perpectivaNegocios}
+                    type="text"
+                    name="perspectivaNegocio"
+                    lab="Perspectiva de Negocio"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <CustomDateField name="plazo" label="Plazo:" />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="caption" sx={{ textTransform: "uppercase" }}>
+                    Analisis
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <CustomTextField
                     Component={TextField}
-                    req="true"
                     type="number"
-                    label="Duracion (horas)"
-                    name="duracionHoras"
-                    helperText={"La Duracion en horas es requerido"}
+                    label="Ponderacion Lider"
+                    name="ponderacion_lider"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <CustomSearchSelect options={tipoOpciones} type="text" name="elearningModal" lab="E-learning" />
+                  <CustomTextField Component={TextField} type="text" label="Fuente de Medicion" name="fuenteMedicion" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <CustomSearchSelect options={tipoOpciones} type="text" name="internaModal" lab="Interna" />
+                  <CustomTextField Component={TextField} type="text" label="Piso" name="piso" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <CustomSearchSelect options={tipoOpciones} type="text" name="inCompanyModal" lab="In Company" />
+                  <CustomTextField Component={TextField} type="text" label="Target" name="target" />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <CustomSearchSelect options={tipoOpciones} type="text" name="externaModal" lab="Externa" />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomTextField
-                    Component={TextField}
-                    multiline={true}
-                    rows={3}
-                    type="text"
-                    label="Objetivo"
-                    name="objetivo"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <CustomTextField
-                    Component={TextField}
-                    multiline={true}
-                    rows={5}
-                    type="text"
-                    label="Contenido"
-                    name="contenido"
-                  />
+                  <CustomTextField Component={TextField} type="text" label="Techo" name="techo" />
                 </Grid>
               </Grid>
             </FormProvider>
           </DialogContentText>
         </DialogContent>
-        {/* <DialogActions
+        <DialogActions
           sx={{
             display: "flex",
             justifyContent: "flex-start",
           }}
         >
-          {data?.empleadoId == user?.empleadoid && (
+          {liderId == user?.empleadoid && (
             <Box sx={{ mt: 3, mb: 2, position: "relative" }}>
               <Button
                 type="button"
                 onClick={handleSubmit(ver === "verDatos" ? editar : cargar)}
                 variant="contained"
-                disabled={resultadoNuevaAsignaciones === "LOADING" || resultadoEditarAsignaciones === "LOADING"}
+                disabled={loadingCargarObjetivo === "LOADING" || loadingEditarObjetivo === "LOADING"}
               >
                 {ver === "verDatos" ? "Editar" : "Guardar"}
-                {resultadoNuevaAsignaciones === "LOADING" ||
-                  (resultadoEditarAsignaciones === "LOADING" && (
+                {loadingCargarObjetivo === "LOADING" ||
+                  (loadingEditarObjetivo === "LOADING" && (
                     <CircularProgress
                       size={27}
                       sx={{
@@ -210,11 +209,11 @@ const ModalCurso = ({ open, handleClose, data, onSubmit, ver = null }) => {
               </Button>
             </Box>
           )}
-        </DialogActions> */}
+        </DialogActions>
       </Dialog>
     );
   } else {
     return null;
   }
 };
-export default ModalCurso;
+export default ModalObjetivos;
