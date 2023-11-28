@@ -72,11 +72,11 @@ const RowOptions = (objeto) => {
           <Icon icon="mdi:eye-outline" fontSize={20} />
         </IconButton>
       </Tooltip>
-        <Tooltip title="Eliminar">
+        {/* <Tooltip title="Eliminar">
           <IconButton size="small" onClick={handleRowOptionsClick}>
             <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "#942020" }} />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
       <Menu
         keepMounted
         anchorEl={anchorEl}
@@ -103,16 +103,16 @@ const RowOptions = (objeto) => {
 };
 
 export const COLUMNS_EVALUACION_PGD = [
-  // {
-  //   flex: 0.1,
-  //   minWidth: 150,
-  //   field: "actions",
-  //   headerName: "Acciones",
-  //   renderCell: (params) => {
-  //     const { row } = params;
-  //     return RowOptions(row);
-  //   },
-  // },
+  {
+    flex: 0.1,
+    minWidth: 150,
+    field: "actions",
+    headerName: "Acciones",
+    renderCell: (params) => {
+      const { row } = params;
+      return RowOptions(row);
+    },
+  },
   {
     flex: 0.275,
     minWidth: 225,
