@@ -1,20 +1,20 @@
 import { AuthContext } from "@/context/AuthContext";
-import { getEvaluacionPGD } from "@/redux/evaluaciones";
+import { getEvaluacionPGDLider } from "@/redux/evaluaciones";
 import moment from "moment/moment";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const useGetEvaluacionesPGD = () => {
+const useGetEvaluacionesPGDLider = () => {
   const dispatch = useDispatch();
   const { token, user } = useContext(AuthContext);
 
-  const evaluacionPGDRedux = useSelector((store) => store.evaluaciones.evaluacionPGD);
-  const loadingEvaluacionPGDSelect = useSelector((store) => store.evaluaciones.loadingEvaluacionPGD);
-  const [evaluacionPGD, setEvaluacionPGD] = useState([]);
-  const [loadingEvaluacionPGD, setLoadingEvaluacionPGD] = useState(false);
+  const evaluacionPGDRedux = useSelector((store) => store.evaluaciones.evaluacionPGDLider);
+  const loadingEvaluacionPGDSelect = useSelector((store) => store.evaluaciones.loadingEvaluacionPGDLider);
+  const [evaluacionPGDLider, setEvaluacionPGDLider] = useState([]);
+  const [loadingEvaluacionPGDLider, setLoadingEvaluacionPGDLider] = useState(false);
 
   useEffect(() => {
-    dispatch(getEvaluacionPGD(token, user?.empleadoid));
+    dispatch(getEvaluacionPGDLider(token, user?.empleadoid));
   }, []);
 
   useEffect(() => {
@@ -41,8 +41,8 @@ const useGetEvaluacionesPGD = () => {
           liderId: items["_new_lder_value"],
           instancia: items["statuscode@OData.Community.Display.V1.FormattedValue"],
           estado_autoevaluacion: items["new_estadodelaautoevaluacin@OData.Community.Display.V1.FormattedValue"],
-          estado_evaluacion_lider: items["new_estadodelaevaluacindellder@OData.Community.Display.V1.FormattedValue"],
-          estado_encuentro_feedback: items["new_estadodelencuentrodefeedback@OData.Community.Display.V1.FormattedValue"],
+          estado_evaluacion_liderTabla: items["new_estadodelaevaluacindellder@OData.Community.Display.V1.FormattedValue"],
+          estado_encuentro_feedbackTabla: items["new_estadodelencuentrodefeedback@OData.Community.Display.V1.FormattedValue"],
           estadofinal_de_la_evaluacinde_pgd : items["new_estadofinaldelaevaluacindepgd@OData.Community.Display.V1.FormattedValue"],
           puesto: items["_new_puesto_value@OData.Community.Display.V1.FormattedValue"],
           fecha_inicio_autoevalacion:  items["new_fechainicioautoevaluacion"],
@@ -76,15 +76,15 @@ const useGetEvaluacionesPGD = () => {
         };
         evaluacion.push(item);
       });
-      setEvaluacionPGD(evaluacion);
-      setLoadingEvaluacionPGD(loadingEvaluacionPGDSelect);
+      setEvaluacionPGDLider(evaluacion);
+      setLoadingEvaluacionPGDLider(loadingEvaluacionPGDSelect);
     } else if (evaluacionPGDRedux?.length == 0 && loadingEvaluacionPGDSelect) {
-        setEvaluacionPGD([]);
-        setLoadingEvaluacionPGD(loadingEvaluacionPGDSelect);
+        setEvaluacionPGDLider([]);
+        setLoadingEvaluacionPGDLider(loadingEvaluacionPGDSelect);
     }
   }, [evaluacionPGDRedux, loadingEvaluacionPGDSelect]);
 
-  return { evaluacionPGD, loadingEvaluacionPGD };
+  return { evaluacionPGDLider, loadingEvaluacionPGDLider };
 };
 
-export default useGetEvaluacionesPGD;
+export default useGetEvaluacionesPGDLider;

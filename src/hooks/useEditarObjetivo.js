@@ -8,7 +8,7 @@ const useEditarObjetivo = () => {
   const dispatch = useDispatch();
 
   const editarObjetivo = (datos, evaluacionPgdId) => {
-    return dispatch(editarObjetivos(token, datos))
+    return dispatch(editarObjetivos(token, datos, evaluacionPgdId))
       .then((id) => {
         dispatch(getObjetivosPGD(token, evaluacionPgdId));
       })

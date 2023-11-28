@@ -35,6 +35,8 @@ import CustomDateField from "@/@core/components/customFields/CustomDateField";
 import { AuthContext } from "@/context/AuthContext";
 import General from "../General";
 import DefinicionDeObjetivos from "../DefinicionDeObjetivos";
+import GestionSeguimiento from "../GestionSeguimiento";
+import EvaluacionFeedback from "../EvaluacionFeedback";
 
 const TabList = styled(MuiTabList)(({ theme }) => ({
   "& .MuiTabs-indicator": {
@@ -65,6 +67,8 @@ const ModalEvaluacionPGD = ({ open, handleClose, data }) => {
   const tabContentList = {
     general: <General data={data} />,
     definicionObjetivos: <DefinicionDeObjetivos data={data} />,
+    gestionSeguimiento: <GestionSeguimiento data={data}/>,
+    evaluacionFeedback: <EvaluacionFeedback data={data}/>
   };
 
   const handleChange = (event, value) => {

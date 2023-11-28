@@ -35,8 +35,10 @@ const dataInicial = {
   loadingObjetivosEvaluacion: false,
   loadingCompetencias: false,
   competencias: "",
-  loadingPlanSucesion:false,
-  planSucesion:"",
+  loadingPlanSucesion: false,
+  planSucesion: "",
+  loadingCiclosPgd: false,
+  ciclosPgd: []
 };
 
 const GET_PAISES_LOADING = "GET_PAISES_LOADING";
@@ -114,6 +116,10 @@ const GET_COMPETENCIAS_ERROR = "GET_COMPETENCIAS_ERROR";
 const GET_PLAN_SUCESION_LOADING = "GET_PLAN_SUCESION_LOADING";
 const GET_PLAN_SUCESION_EXITO = "GET_PLAN_SUCESION_EXITO";
 const GET_PLAN_SUCESION_ERROR = "GET_PLAN_SUCESION_ERROR";
+
+const GET_CICLOS_PGD_LOADING = "GET_CICLOS_PGD_LOADING";
+const GET_CICLOS_PGD_EXITO = "GET_CICLOS_PGD_EXITO";
+const GET_CICLOS_PGD_ERROR = "GET_CICLOS_PGD_ERROR";
 
 export default function dataVariosReducers(state = dataInicial, action) {
   switch (action.type) {
@@ -243,6 +249,16 @@ export default function dataVariosReducers(state = dataInicial, action) {
       };
     case GET_PLAN_SUCESION_ERROR:
       return { ...state, loadingPlanSucesion: action.loading };
+    case GET_CICLOS_PGD_LOADING:
+      return { ...state, loadingCiclosPgd: action.loading };
+    case GET_CICLOS_PGD_EXITO:
+      return {
+        ...state,
+        ciclosPgd: action.payload,
+        loadingCiclosPgd: action.loading,
+      };
+    case GET_CICLOS_PGD_ERROR:
+      return { ...state, loadingCiclosPgd: action.loading };
     default:
       return { ...state };
   }
@@ -1146,11 +1162,7 @@ export const getEmpleados = (token) => async (dispatch) => {
       "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
       "<entity name='new_empleado'>" +
       "<attribute name='new_name' />" +
-      "<attribute name='new_cuitcuil' />" +
-      "<attribute name='new_correoelectronico' />" +
-      "<attribute name='new_numerolegajo' />" +
       "<attribute name='new_empleadoid' />" +
-      "<attribute name='new_proximocumpleanios' />" +
       "<order attribute='new_numerolegajo' descending='false' />" +
       "<filter type='and'>" +
       "<condition attribute='statuscode' operator='eq' value='1' />" +
@@ -1245,16 +1257,14 @@ export const getObjetivoEvaluacion = (token) => async (dispatch) => {
   if (!token) {
     return;
   } else {
-    const entidad = "new_objetivodeevaluacions";
+    const entidad = "new_objetivoses";
     const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
-    <entity name="new_objetivodeevaluacion">
-      <attribute name="new_perspectivadenegocio" />
-      <attribute name="statuscode" />
-      <attribute name="new_plazo" />
-      <attribute name="new_objetivodeevaluacionid" />
+    <entity name="new_objetivos">
+      <attribute name="new_name" />
+      <attribute name="new_objetivosid" />
       <order attribute="new_name" descending="false" />
       <filter type="and">
-        <condition attribute="new_tipodeobjetivo" operator="eq" value="100000000" />
+        <condition attribute="statecode" operator="eq" value="0" />
       </filter>
     </entity>
   </fetch>`;
@@ -1381,6 +1391,57 @@ export const getPlanSucesion = (token) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: GET_PLAN_SUCESION_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getCiclosPGD = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_CICLOS_PGD_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_ciclodepgds";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_ciclodepgd">
+      <attribute name="new_name" />
+      <attribute name="createdon" />
+      <attribute name="new_fechahasta" />
+      <attribute name="new_fechadesde" />
+      <attribute name="new_ciclodepgdid" />
+      <order attribute="createdon" descending="true" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+      </filter>
+    </entity>
+  </fetch>`;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_CICLOS_PGD_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_CICLOS_PGD_ERROR,
         loading: true,
       });
     }

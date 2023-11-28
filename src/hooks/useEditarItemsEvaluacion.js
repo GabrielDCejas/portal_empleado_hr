@@ -8,7 +8,7 @@ const useEditarItemsEvaluacion = () => {
   const dispatch = useDispatch();
 
   const editarItemEvaluacion = (datos, evaluaciondepgdid) => {
-    return dispatch(editarItemsEvaluacion(token, datos))
+    return dispatch(editarItemsEvaluacion(token, datos, evaluaciondepgdid))
       .then(() => {
         dispatch(getItemsEvaluacion(token, evaluaciondepgdid));
       })

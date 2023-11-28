@@ -10,6 +10,8 @@ const useGetObjetivosEvaluacion = () => {
   const objetivosEvaluacionRedux = useSelector((store) => store.dataVarios.objetivosEvaluacion)
   const [objetivosEvaluacion, setObjetivosEvaluacion] = useState([])
 
+  console.log("objetivosEvaluacionRedux", objetivosEvaluacionRedux)
+
   useEffect(() => {
     dispatch(getObjetivoEvaluacion(token));
   }, []);

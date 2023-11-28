@@ -1,5 +1,6 @@
 import { AuthContext } from "@/context/AuthContext";
 import { getMetasPrioritarias } from "@/redux/evaluaciones";
+import moment from "moment/moment";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,9 +29,14 @@ const useGetMetaPrioritarias = (id) => {
           nombre: items.new_name,
           accion: items.new_accion,
           evidencia: items.new_evidencia,
-          fecha_desde: items["new_fechadesde@OData.Community.Display.V1.FormattedValue"],
-          fechas_hasta: items["new_fechahasta@OData.Community.Display.V1.FormattedValue"],
-          razon_estado: items["statuscode@OData.Community.Display.V1.FormattedValue"]
+          fecha_desde: moment(items["new_fechadesde@OData.Community.Display.V1.FormattedValue"], "DD/MM/YY").format("YYYY-MM-DD"),
+          fecha_hasta: moment(items["new_fechahasta@OData.Community.Display.V1.FormattedValue"], "DD/MM/YY").format("YYYY-MM-DD"),
+          razon_estado: items["statuscode@OData.Community.Display.V1.FormattedValue"],
+          tipo_accion: {label:items["new_tipodeaccin@OData.Community.Display.V1.FormattedValue"], value: items["new_tipodeaccin"]},
+          razon_estado_label: {label:items["statuscode@OData.Community.Display.V1.FormattedValue"], value: items["statuscode"]},
+          comentarios_observaciones: items.new_comentarios,
+          lider_id : items["evaluaciondepgd.new_lder"],
+          evaluacion_pgd_id: items["_new_evaluacionpgd_value"]
         };
         metaPrioritaria.push(item);
       });
