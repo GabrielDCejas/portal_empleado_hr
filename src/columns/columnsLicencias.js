@@ -84,7 +84,7 @@ const renderClient = (params) => {
         </Tooltip>
         <Tooltip title="Eliminar">
           <IconButton size="small" onClick={handleRowOptionsClick}>
-            <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "red" }} />
+            <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "#942020" }} />
           </IconButton>
         </Tooltip>
         <Menu
