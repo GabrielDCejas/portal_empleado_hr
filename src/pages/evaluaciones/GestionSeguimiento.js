@@ -38,7 +38,7 @@ const opcionesEstadoInstancia = [
   { value: 100000004, label: "No Aplica" },
 ];
 
-const DefinicionDeObjetivos = ({ data }) => {
+const GestionSeguimiento = ({ data }) => {
   const { user } = useContext(AuthContext);
 
   const editarEvaluacionPGD = useEditarEvaluacionPGD();
@@ -61,11 +61,13 @@ const DefinicionDeObjetivos = ({ data }) => {
     shouldUnregister: false,
     mode: "onChange",
     defaultValues: {
-      fecha_inicio_autoevalacion: null,
-      fecha_vencimiento_autoevalacion: null,
-      definicion_objetivos: null,
-      estado_definicion_objetivos: null,
-      comentarios_observaciones: null,
+      fecha_inicio_evaluacin_lider: null,
+      fecha_vencimiento_evaluacin_lider: null,
+      new_evaluaciondellder: null,
+      estado_evaluacion_lider: null,
+      performance_individual: null,
+      nivel_logro: null,
+      comentarios_observaciones_autoevaluacion: null,
       promedio_evaluacion: null,
       cantidad_competencias: null,
       puntaje_evaluacion_pgd_lider: null,
@@ -130,19 +132,19 @@ const DefinicionDeObjetivos = ({ data }) => {
         <Grid container spacing={2}>
           <Grid item lg={12} md={12} xs={12}>
             <FormProvider {...methods}>
-              <Grid container>
+              <Grid container spacing={4}>
                 <Grid item lg={12} sx={{ mx: { xs: 0, sm: "5vw" } }}>
                   <Grid container spacing={4}>
                     <Grid item xs={12} sm={6}>
                       <CustomDateField
-                        name="fecha_inicio_autoevalacion"
+                        name="fecha_inicio_evaluacin_lider"
                         label="Fecha inicio"
                         readOnly={data?.liderId !== user?.empleadoid}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <CustomDateField
-                        name="fecha_vencimiento_autoevalacion"
+                        name="fecha_vencimiento_evaluacin_lider"
                         label="Fecha Vencimiento"
                         readOnly={data?.liderId !== user?.empleadoid}
                       />
@@ -151,8 +153,8 @@ const DefinicionDeObjetivos = ({ data }) => {
                       <CustomTextField
                         Component={TextField}
                         type="text"
-                        name="definicion_objetivos"
-                        label="Definición De Objetivos"
+                        name="new_evaluaciondellder"
+                        label="Gestión y Seguimiento"
                         readOnly={true}
                         iconoClose={true}
                       />
@@ -161,8 +163,8 @@ const DefinicionDeObjetivos = ({ data }) => {
                       <CustomSearchSelect
                         options={opcionesEstadoInstancia}
                         type="text"
-                        name="estado_definicion_objetivos"
-                        lab="Estado de la Definición de Objetivos"
+                        name="estado_evaluacion_lider"
+                        lab="Estado de la Gestión y Seguimiento"
                         disabled={data?.liderId !== user?.empleadoid}
                       />
                     </Grid>
@@ -178,6 +180,30 @@ const DefinicionDeObjetivos = ({ data }) => {
                 </Grid>
               </Grid>
               <Grid container spacing={3}>
+                <Grid item lg={12} sx={{ mx: { xs: 0, sm: "5vw" } }}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} sm={6}>
+                      <CustomTextField
+                        Component={TextField}
+                        type="text"
+                        name="performance_individual"
+                        label="Performance Individual"
+                        readOnly={true}
+                        iconoClose={true}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <CustomTextField
+                        Component={TextField}
+                        type="text"
+                        name="nivel_logro"
+                        label="Nivel de Logro"
+                        readOnly={true}
+                        iconoClose={true}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
                 <Grid item xs={12}>
                   {loadingObjetivosPGD ? (
                     <Table
@@ -193,14 +219,14 @@ const DefinicionDeObjetivos = ({ data }) => {
                     </Box>
                   )}
                 </Grid>
-                <Grid item lg={12} sx={{ mx: { xs: 0, sm: "5vw" } }}>
-                  <Grid container spacing={4}>
-                    <Grid item xs={12}>
+                <Grid item xs={12} sx={{ mt: 4 }}>
+                  <Grid item lg={12} sx={{ mx: { xs: 0, sm: "5vw" } }}>
+                    <Grid container spacing={4}>
                       <CustomTextField
                         Component={TextField}
                         type="text"
-                        name="comentarios_observaciones"
-                        label="Comentarios y Observaciones"
+                        name="comentarios_observaciones_autoevaluacion"
+                        label="Comentarios y Observaciones del Feedback del Lider"
                         rows={3}
                         multiline={true}
                         readOnly={data?.liderId !== user?.empleadoid}
@@ -465,4 +491,4 @@ const DefinicionDeObjetivos = ({ data }) => {
   }
 };
 
-export default DefinicionDeObjetivos;
+export default GestionSeguimiento;

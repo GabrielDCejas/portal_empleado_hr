@@ -1,30 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, Grid, Typography, Card, CardContent, Divider, CircularProgress } from "@mui/material";
 import Icon from "@/@core/components/icon";
 /** yup **/
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
+import DialogActions from "@mui/material/DialogActions";
+
+import { useSelector } from "react-redux";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-
 /**fields */
 import CustomTextField from "@/@core/components/customFields/CustomTextField";
-import { useSelector } from "react-redux";
+import useGetCiclosPGD from "@/hooks/usegetCiclosPGD";
 import CustomSearchSelect from "@/@core/components/customFields/CustomSearchSelect";
-import CustomDateField from "@/@core/components/customFields/CustomDateField";
-import useEditarDatosEmpleado from "@/hooks/useEditarDatosEmpleado";
+import { AuthContext } from "@/context/AuthContext";
+import useEditarEvaluacionPGD from "@/hooks/useEditarEvaluacionPGD";
+import useGetEmpleados from "@/hooks/useGetEmpleados";
 
 const General = ({ data }) => {
+  const { user } = useContext(AuthContext);
+
+  const editarEvaluacionPGD = useEditarEvaluacionPGD();
+
+  const loadingEditarEvaluacionPGD = useSelector((store) => store.evaluaciones.loadingEditarEvaluacionPGD);
+
+  const { ciclosPgd } = useGetCiclosPGD();
+  const { empleados } = useGetEmpleados();
+
   const { handleSubmit, setValue, ...methods } = useForm({
     shouldUnregister: false,
     mode: "onChange",
     defaultValues: {
       fecha_creacion: null,
-      ciclo_pgd: null,
+      ciclo_pgd_select: null,
       evaluado: null,
-      lider: null,
+      lider_select: null,
       grupo_ciclo: null,
       instancia: null,
       estadofinal_de_la_evaluacinde_pgd: null,
@@ -45,11 +57,14 @@ const General = ({ data }) => {
     }
   }, [data, setValue]);
 
+  const actualizarEvaluacion = (datos) => {
+    editarEvaluacionPGD(datos);
+  };
 
   if (data) {
     return (
-      <Grid container spacing={2} >
-        <Grid item lg={12} md={12} xs={12} sx={{mx: {xs: 0, sm:"5vw"}}}>
+      <Grid container spacing={2}>
+        <Grid item lg={12} md={12} xs={12} sx={{ mx: { xs: 0, sm: "5vw" } }}>
           <FormProvider {...methods}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
@@ -63,13 +78,12 @@ const General = ({ data }) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <CustomTextField
-                  Component={TextField}
+                <CustomSearchSelect
+                  options={ciclosPgd}
                   type="text"
-                  name="ciclo_pgd"
-                  label="Ciclo de PGD"
-                  readOnly={true}
-                  iconoClose={true}
+                  name="ciclo_pgd_select"
+                  lab="Ciclo de PGD"
+                  disabled={data?.liderId !== user?.empleadoid}
                 />
               </Grid>
             </Grid>
@@ -86,13 +100,12 @@ const General = ({ data }) => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <CustomTextField
-                  Component={TextField}
+                <CustomSearchSelect
+                  options={empleados}
                   type="text"
-                  name="lider"
-                  label="Líder"
-                  readOnly={true}
-                  iconoClose={true}
+                  name="lider_select"
+                  lab="Líder"
+                  disabled={data?.liderId !== user?.empleadoid}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -190,6 +203,33 @@ const General = ({ data }) => {
               </Grid>
             </Grid>
           </FormProvider>
+          <DialogActions>
+            <Box sx={{ mt: 3, mb: 2, position: "relative" }}>
+              <Button
+                onClick={handleSubmit(actualizarEvaluacion)}
+                size="large"
+                type="submit"
+                sx={{ mr: 2 }}
+                variant="contained"
+                disabled={loadingEditarEvaluacionPGD === "LOADING"}
+              >
+                Editar
+                {loadingEditarEvaluacionPGD === "LOADING" && (
+                  <CircularProgress
+                    size={27}
+                    sx={{
+                      color: "#fff",
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      marginTop: "-12px",
+                      marginLeft: "-12px",
+                    }}
+                  />
+                )}
+              </Button>
+            </Box>
+          </DialogActions>
         </Grid>
       </Grid>
     );

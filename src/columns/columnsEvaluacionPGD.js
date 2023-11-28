@@ -300,12 +300,12 @@ export const COLUMNS_EVALUACION_PGD = [
   {
     flex: 0.275,
     minWidth: 200,
-    field: "estado_evaluacion_lider",
+    field: "estado_evaluacion_liderTabla",
     headerName: "Estado de la Evaluación del Líder",
     renderCell: (params) => (
-      <Tooltip title={params.row.estado_evaluacion_lider}>
+      <Tooltip title={params.row.estado_evaluacion_liderTabla}>
         <Typography variant="body2" sx={{ color: "text.primary" }}>
-          {params.row.estado_evaluacion_lider}
+          {params.row.estado_evaluacion_liderTabla}
         </Typography>
       </Tooltip>
     ),
@@ -313,12 +313,12 @@ export const COLUMNS_EVALUACION_PGD = [
   {
     flex: 0.275,
     minWidth: 200,
-    field: "estado_encuentro_feedback",
+    field: "estado_encuentro_feedbackTabla",
     headerName: "Estado del Encuentro de Feedback",
     renderCell: (params) => (
-      <Tooltip title={params.row.estado_encuentro_feedback}>
+      <Tooltip title={params.row.estado_encuentro_feedbackTabla}>
         <Typography variant="body2" sx={{ color: "text.primary" }}>
-          {params.row.estado_encuentro_feedback}
+          {params.row.estado_encuentrestado_encuentro_feedbackTablao_feedback}
         </Typography>
       </Tooltip>
     ),

@@ -6,8 +6,8 @@ import CustomAvatar from "@/@core/components/mui/avatar";
 import { getInitials } from "@/@core/utils/get-initials";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
-import ModalItemsEvaluacion from "@/pages/evaluaciones/modales/ModalItemsEvaluacion";
-import { eliminarItemsEvaluacion, getItemsEvaluacion } from "@/redux/evaluaciones";
+import {eliminarMetasPrioritarias, getMetasPrioritarias } from "@/redux/evaluaciones";
+import ModalMetasPrioritarias from "@/pages/evaluaciones/modales/ModalMetasPrioritarias";
 
 const renderClient = (params) => {
   const { row } = params;
@@ -55,9 +55,9 @@ const RowOptions = (objeto) => {
   };
 
   const deleteRow = () => {
-    dispatch(eliminarItemsEvaluacion(token, objeto?.id))
+    dispatch(eliminarMetasPrioritarias(token, objeto?.id))
       .then((id) => {
-        dispatch(getItemsEvaluacion(token, objeto?.evaluacion_pgd_id));
+        dispatch(getMetasPrioritarias(token, objeto?.evaluacion_pgd_id));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -102,7 +102,7 @@ const RowOptions = (objeto) => {
         </MenuItem>
       </Menu>
       {open && (
-        <ModalItemsEvaluacion
+        <ModalMetasPrioritarias
           open={open}
           data={objeto}
           handleClose={handleClose}
@@ -175,11 +175,11 @@ export const COLUMNS_METAS_PRIORITARIAS = [
   {
     flex: 0.275,
     minWidth: 175,
-    field: "fechas_hasta",
+    field: "fecha_hasta",
     headerName: "Fecha Hasta",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.fechas_hasta}
+        {params.row.fecha_hasta}
       </Typography>
     ),
   },
