@@ -56,7 +56,7 @@ const RowOptions = (objeto) => {
       {objeto?.empleadoId == user?.empleadoid && (
         <Tooltip title="Eliminar">
           <IconButton size="small" onClick={handleRowOptionsClick}>
-            <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "red" }} />
+            <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "#942020" }} />
           </IconButton>
         </Tooltip>
       )}
@@ -76,7 +76,7 @@ const RowOptions = (objeto) => {
         PaperProps={{ style: { minWidth: "8rem" } }}
       >
         <MenuItem onClick={deleteRow} sx={{ "& svg": { mr: 2 } }}>
-          <Icon icon="mingcute:alert-fill" fontSize={20} style={{ color: "red" }} />
+          <Icon icon="mingcute:alert-fill" fontSize={20} style={{ color: "#942020" }} />
           Desea eliminar este registro ?
         </MenuItem>
       </Menu>
