@@ -122,72 +122,84 @@ const Navigation = (props) => {
         {(beforeVerticalNavMenuContentPosition === "static" || !beforeNavMenuContent) && (
           <StyledBoxForShadow ref={shadowRef} />
         )}
-        <Box sx={{ position: "relative", overflow: "hidden" }}>
-          {/* @ts-ignore */}
-          <ScrollWrapper
-            {...(hidden
-              ? {
-                  onScroll: (container) => scrollMenu(container),
-                  sx: { height: "100%", overflowY: "auto", overflowX: "hidden" },
-                }
-              : {
-                  options: { wheelPropagation: false },
-                  onScrollY: (container) => scrollMenu(container),
-                  containerRef: (ref) => handleInfiniteScroll(ref),
-                })}
-          >
-            {beforeNavMenuContent && beforeVerticalNavMenuContentPosition === "static"
-              ? beforeNavMenuContent(navMenuContentProps)
-              : null}
-            {userNavMenuContent ? (
-              userNavMenuContent(navMenuContentProps)
-            ) : (
-              <List
-                className="nav-items"
-                sx={{
-                  pt: 0,
-                  transition: "padding .25s ease",
-                  "& > :first-child": { mt: "0" },
-                  pr: !navCollapsed || (navCollapsed && navHover) ? 4.5 : 1.25,
-                }}
-              >
-                <VerticalNavItems
-                  navHover={navHover}
-                  groupActive={groupActive}
-                  setGroupActive={setGroupActive}
-                  currentActiveGroup={currentActiveGroup}
-                  setCurrentActiveGroup={setCurrentActiveGroup}
-                  {...props}
-                />
-              </List>
-            )}
-            {afterNavMenuContent && afterVerticalNavMenuContentPosition === "static"
-              ? afterNavMenuContent(navMenuContentProps)
-              : null}
-          </ScrollWrapper>
-        </Box>
-        {afterNavMenuContent && afterVerticalNavMenuContentPosition === "fixed"
-          ? afterNavMenuContent(navMenuContentProps)
-          : null}
-        {(!navCollapsed || navHover) && (
-          <Box
-            sx={{
-              position: "absolute",
-              bottom: 0,
-              left: "50%",
-              transform: "translateX(-50%)",
-              textAlign: "center",
-              mb: 5,
-              width: "100%", // Asegura que el ancho sea el 100% del Drawer
-            }}
-          >
-            {settings.mode === "dark" ? (
-              <Image src={logoBlanco} width={150} alt="logo" />
-            ) : (
-              <Image src={logoNegro} width={150} alt="logo" />
-            )}
+        <Box
+          sx={{
+            position: "relative",
+            overflow: "hidden",
+            height:"100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ position: "relative", overflow: "hidden" }}>
+            {/* @ts-ignore */}
+            <ScrollWrapper
+              {...(hidden
+                ? {
+                    onScroll: (container) => scrollMenu(container),
+                    sx: { height: "100%", overflowY: "auto", overflowX: "hidden" },
+                  }
+                : {
+                    options: { wheelPropagation: false },
+                    onScrollY: (container) => scrollMenu(container),
+                    containerRef: (ref) => handleInfiniteScroll(ref),
+                  })}
+            >
+              {beforeNavMenuContent && beforeVerticalNavMenuContentPosition === "static"
+                ? beforeNavMenuContent(navMenuContentProps)
+                : null}
+              {userNavMenuContent ? (
+                userNavMenuContent(navMenuContentProps)
+              ) : (
+                <List
+                  className="nav-items"
+                  sx={{
+                    pt: 0,
+                    transition: "padding .25s ease",
+                    "& > :first-child": { mt: "0" },
+                    pr: !navCollapsed || (navCollapsed && navHover) ? 4.5 : 1.25,
+                  }}
+                >
+                  <VerticalNavItems
+                    navHover={navHover}
+                    groupActive={groupActive}
+                    setGroupActive={setGroupActive}
+                    currentActiveGroup={currentActiveGroup}
+                    setCurrentActiveGroup={setCurrentActiveGroup}
+                    {...props}
+                  />
+                </List>
+              )}
+              {afterNavMenuContent && afterVerticalNavMenuContentPosition === "static"
+                ? afterNavMenuContent(navMenuContentProps)
+                : null}
+            </ScrollWrapper>
           </Box>
-        )}
+          {afterNavMenuContent && afterVerticalNavMenuContentPosition === "fixed"
+            ? afterNavMenuContent(navMenuContentProps)
+            : null}
+          {(!navCollapsed || navHover) && (
+            <Box
+              sx={{
+                position: "sticky",
+                bottom: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                textAlign: "center",
+                mb: 5,
+                ml: 30,
+                width: "100%", // Asegura que el ancho sea el 100% del Drawer
+              }}
+            >
+              {settings.mode === "dark" ? (
+                <Image src={logoBlanco} width={150} alt="logo" />
+              ) : (
+                <Image src={logoNegro} width={150} alt="logo" />
+              )}
+            </Box>
+          )}
+        </Box>
       </Drawer>
     </ThemeProvider>
   );
