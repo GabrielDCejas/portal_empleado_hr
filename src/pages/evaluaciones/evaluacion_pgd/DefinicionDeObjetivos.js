@@ -96,7 +96,7 @@ const DefinicionDeObjetivos = ({ data }) => {
   };
 
   const handleCargarObjetivos = (datos) => {
-    cargarObjetivos(datos, data.id, handleCloseModalObjetivos);
+    cargarObjetivos(datos, data.id, handleCloseModalObjetivos)
   };
 
   const openModalItemsEvaluacion = () => {
