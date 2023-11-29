@@ -6,7 +6,7 @@ import CustomAvatar from "@/@core/components/mui/avatar";
 import { getInitials } from "@/@core/utils/get-initials";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
-import ModalObjetivos from "@/pages/evaluaciones/modales/ModalObjetivos";
+import ModalObjetivos from "@/pages/evaluaciones/evaluacion_pgd/modales/ModalObjetivos";
 import { eliminarObjetivo, getObjetivosPGD } from "@/redux/evaluaciones";
 
 const renderClient = (params) => {

@@ -57,6 +57,7 @@ const ModalObjetivos = ({ open, handleClose, data, onSubmit, ver = null, liderId
     shouldUnregister: false,
     mode: "onChange",
     defaultValues: {
+      objetivo: null,
       tipoObjetivo: null,
       perspectivaNegocio: null,
       plazo: null,
@@ -120,6 +121,14 @@ const ModalObjetivos = ({ open, handleClose, data, onSubmit, ver = null, liderId
                   <Typography variant="caption" sx={{ textTransform: "uppercase" }}>
                     General
                   </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <CustomTextField
+                    Component={TextField}
+                    type="text"
+                    label="Objetivo"
+                    name="objetivo"
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <CustomSearchSelect

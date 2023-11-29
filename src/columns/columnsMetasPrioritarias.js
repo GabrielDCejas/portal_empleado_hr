@@ -7,7 +7,7 @@ import { getInitials } from "@/@core/utils/get-initials";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
 import {eliminarMetasPrioritarias, getMetasPrioritarias } from "@/redux/evaluaciones";
-import ModalMetasPrioritarias from "@/pages/evaluaciones/modales/ModalMetasPrioritarias";
+import ModalMetasPrioritarias from "@/pages/evaluaciones/evaluacion_pgd/modales/ModalMetasPrioritarias";
 
 const renderClient = (params) => {
   const { row } = params;

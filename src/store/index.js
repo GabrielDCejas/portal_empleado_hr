@@ -10,6 +10,7 @@ import cargasCursosReducers from "@/redux/cursos";
 import usuariosFirebaseReducer from "@/redux/usuariosFirebase";
 import propuestaReducers from "@/redux/propuestaMejoras";
 import evaluacionesReducers from "@/redux/evaluaciones";
+import solicitudesReducers from "@/redux/solicitudes";
 
 const middleware = [thunk];
 const composeEnhancers = (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
@@ -25,7 +26,8 @@ const store = createStore(
     cursos: cargasCursosReducers,
     usuariosFirebase: usuariosFirebaseReducer,
     propuesta: propuestaReducers,
-    evaluaciones: evaluacionesReducers
+    evaluaciones: evaluacionesReducers,
+    solicitudes: solicitudesReducers,
   }),
   composeEnhancers(applyMiddleware(...middleware))
 );

@@ -132,14 +132,14 @@ const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, l
                     General
                   </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <CustomSearchSelect
                     options={opcionesTipoItemEvaluacion}
                     type="text"
                     name="tipoItemEvaluacion"
                     lab="Tipo de Item de Evaluacion"
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} sm={6}>
                   <CustomSearchSelect
                     options={competencias}
@@ -164,7 +164,7 @@ const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, l
                     lab="Valoración del Líder"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <CustomSearchSelect
                     options={opcionesTipoInstancia}
                     type="text"
@@ -179,7 +179,7 @@ const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, l
                     name="planSucesion"
                     lab="Plan de Sucesión"
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </FormProvider>
           </DialogContentText>

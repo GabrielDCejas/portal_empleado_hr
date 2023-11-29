@@ -85,7 +85,7 @@ const App = (props) => {
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>Portal del Empleado - Humanware Applications</title>
+          <title>Portal del Empleado - HR One Click</title>
           <meta
             name="description"
             content="Portal del Empleado – Web portal – implementado para la gestion de RR.HH."

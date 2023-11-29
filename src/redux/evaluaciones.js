@@ -526,6 +526,9 @@ export const getObjetivosPGD = (token, evaluaciondePgdId) => async (dispatch) =>
             <condition attribute="new_evaluaciondepgdid" operator="eq" uitype="new_evaluaciondepgd" value='${evaluaciondePgdId}' />
           </filter>
         </link-entity>
+        <link-entity name="new_objetivos" from="new_objetivosid" to="new_objetivo" visible="false" link-type="outer" alias="objetivos">
+        <attribute name="new_name" />
+      </link-entity>
       </entity>
     </fetch>`;
 
@@ -691,6 +694,7 @@ export const enviarObjetivo = (token, datos, evaluaciondepgdid) => async (dispat
           `${UrlApi}api/hroneclick/objetivo`,
           {
             new_evaluaciondepgd: evaluaciondepgdid,
+            new_name: datos?.objetivo,
             new_objetivo: datos.objetivoPrimario.value ? datos.objetivoPrimario.value : "",
             new_tipodeobjetivo: datos.tipoObjetivo.value ? Number(datos.tipoObjetivo.value) : 0,
             new_perspectivadenegocio: datos.perspectivaNegocio.value ? datos.perspectivaNegocio.value : "",
@@ -742,6 +746,7 @@ export const editarObjetivos = (token, datos, evaluaciondepgdid) => async (dispa
         .put(
           `${UrlApi}api/hroneclick/objetivo`,
           {
+            new_name: datos?.objetivo,
             new_evaluaciondepgd: evaluaciondepgdid,
             new_objetivodeevaluacionid: datos.id,
             new_objetivo: datos.objetivoPrimario.value ? datos.objetivoPrimario.value : "",

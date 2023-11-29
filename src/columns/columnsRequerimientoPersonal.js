@@ -66,7 +66,6 @@ const RowOptions = (objeto) => {
 
   return (
     <>
-      {objeto?.lider_id == user?.empleadoid && (
         <>
           <Tooltip title="Ver">
             <IconButton size="small" onClick={verTRayectoria}>
@@ -79,7 +78,6 @@ const RowOptions = (objeto) => {
             </IconButton>
           </Tooltip>
         </>
-      )}
       <Menu
         keepMounted
         anchorEl={anchorEl}
@@ -114,38 +112,71 @@ const RowOptions = (objeto) => {
   );
 };
 
-export const COLUMNS_ITEMS_EVALUACION = [
-  {
-    flex: 0.1,
-    minWidth: 150,
-    field: "actions",
-    headerName: "Acciones",
-    renderCell: (params) => {
-      const { row } = params;
-      return RowOptions(row);
-    },
-  },
+export const COLUMNS_REQUERIMIENTO_PERSONAL = [
+//   {
+//     flex: 0.1,
+//     minWidth: 150,
+//     field: "actions",
+//     headerName: "Acciones",
+//     renderCell: (params) => {
+//       const { row } = params;
+//       return RowOptions(row);
+//     },
+//   },
   {
     flex: 0.275,
-    minWidth: 250,
-    field: "competencia",
-    headerName: "Competencia/Objetivo",
+    minWidth: 150,
+    field: "fecha_solicitud",
+    headerName: "Fecha de Solicitud",
     renderCell: (params) => (
-      <Tooltip title={params.row.competencia}>
+      <Tooltip title={params.row.fecha_solicitud}>
         <Typography variant="body2" sx={{ color: "text.primary" }}>
-          {params.row.competencia}
+          {params.row.fecha_solicitud}
         </Typography>
       </Tooltip>
     ),
   },
   {
     flex: 0.275,
-    minWidth: 175,
-    field: "valoracion",
-    headerName: "Valoración",
+    minWidth: 200,
+    field: "perfil",
+    headerName: "Perfil",
     renderCell: (params) => (
       <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.valoracion}
+        {params.row.perfil}
+      </Typography>
+    ),
+  },
+  {
+    flex: 0.275,
+    minWidth: 200,
+    field: "puesto",
+    headerName: "Puesto",
+    renderCell: (params) => (
+      <Typography variant="body2" sx={{ color: "text.primary" }}>
+        {params.row.puesto}
+      </Typography>
+    ),
+  },
+  {
+    flex: 0.275,
+    minWidth: 225,
+    field: "cliente",
+    headerName: "Cliente",
+    renderCell: (params) => (
+      <Typography variant="body2" sx={{ color: "text.primary" }}>
+        {params.row.cliente}
+      </Typography>
+    ),
+  },
+  {
+    flex: 0.275,
+    minWidth: 225,
+    field: "razon_estado",
+    headerName: "Razón para el estado",
+    renderCell: (params) => (
+      <Typography variant="body2" sx={{ color: "text.primary" }}>
+        {params.row.razon_estado}
       </Typography>
     ),
   }

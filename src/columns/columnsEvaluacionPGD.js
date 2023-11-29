@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
 import { eliminarAsignacion, getAsignaciones } from "@/redux/asignacion";
-import ModalEvaluacionPGD from "@/pages/evaluaciones/modales/ModalEvaluacionPGD";
+import ModalEvaluacionPGD from "@/pages/evaluaciones/evaluacion_pgd/modales/ModalEvaluacionPGD";
 
 const renderClient = (params) => {
   const { row } = params;
