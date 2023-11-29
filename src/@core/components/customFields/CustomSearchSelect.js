@@ -15,9 +15,10 @@ const CustomSearchSelect = ({
   options,
   ultimaOpcion,
   handleChange = null,
-  onClick= null,
+  onClick = null,
   disabled = false,
   req = false,
+  readOnly = false, 
   ...restProps
 }) => {
   const formState = useFormState();
@@ -48,6 +49,7 @@ const CustomSearchSelect = ({
           error={Boolean(formState.errors && formState.errors[name])}
         >
           <Autocomplete
+            readOnly={readOnly}
             open={open}
             disabled={disabled}
             isOptionEqualToValue={(option, value) => option.value === value.value}

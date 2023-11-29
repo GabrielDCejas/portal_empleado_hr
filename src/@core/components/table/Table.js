@@ -39,13 +39,15 @@ const Table = ({ data, columns, name, addRow, toggle }) => {
 
   return (
     <Card>
-      <Grid container sx={{ m: 5 }}>
-        <Grid item xs={12}>
-          <Typography variant="body2" sx={{ textTransform: "uppercase" }}>
-            {name}
-          </Typography>
-        </Grid>
-      </Grid>
+      {name ?
+        <Grid container sx={{ m: 5 }}>
+          <Grid item xs={12}>
+            <Typography variant="body2" sx={{ textTransform: "uppercase" }}>
+              {name}
+            </Typography>
+          </Grid>
+        </Grid> : null
+      }
       <DataGrid
         getRowId={(row) => row.id}
         autoHeight
