@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
 import ModalItemsEvaluacion from "@/pages/evaluaciones/evaluacion_pgd/modales/ModalItemsEvaluacion";
 import { eliminarItemsEvaluacion, getItemsEvaluacion } from "@/redux/evaluaciones";
+import ModalRequerimientoPersonal from "@/pages/solicitudes/requerimiento_personal/Modales/ModalRequerimientoPersonal";
+import { eliminarRequerimiento, getRequerimientoPersonal } from "@/redux/solicitudes";
 
 const renderClient = (params) => {
   const { row } = params;
@@ -54,9 +56,9 @@ const RowOptions = (objeto) => {
   };
 
   const deleteRow = () => {
-    dispatch(eliminarItemsEvaluacion(token, objeto?.id))
+    dispatch(eliminarRequerimiento(token, objeto?.id))
       .then((id) => {
-        dispatch(getItemsEvaluacion(token, objeto?.evaluacion_pgd_id));
+        dispatch(getRequerimientoPersonal(token, objeto?.evaluacion_pgd_id));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -66,18 +68,18 @@ const RowOptions = (objeto) => {
 
   return (
     <>
-        <>
-          <Tooltip title="Ver">
-            <IconButton size="small" onClick={verTRayectoria}>
-              <Icon icon="mdi:eye-outline" fontSize={20} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Eliminar">
+      <>
+        <Tooltip title="Ver">
+          <IconButton size="small" onClick={verTRayectoria}>
+            <Icon icon="mdi:eye-outline" fontSize={20} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Eliminar">
             <IconButton size="small" onClick={handleRowOptionsClick}>
               <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "#942020" }} />
             </IconButton>
           </Tooltip>
-        </>
+      </>
       <Menu
         keepMounted
         anchorEl={anchorEl}
@@ -99,7 +101,7 @@ const RowOptions = (objeto) => {
         </MenuItem>
       </Menu>
       {open && (
-        <ModalItemsEvaluacion
+        <ModalRequerimientoPersonal
           open={open}
           data={objeto}
           handleClose={handleClose}
@@ -113,16 +115,16 @@ const RowOptions = (objeto) => {
 };
 
 export const COLUMNS_REQUERIMIENTO_PERSONAL = [
-//   {
-//     flex: 0.1,
-//     minWidth: 150,
-//     field: "actions",
-//     headerName: "Acciones",
-//     renderCell: (params) => {
-//       const { row } = params;
-//       return RowOptions(row);
-//     },
-//   },
+  {
+    flex: 0.1,
+    minWidth: 150,
+    field: "actions",
+    headerName: "Acciones",
+    renderCell: (params) => {
+      const { row } = params;
+      return RowOptions(row);
+    },
+  },
   {
     flex: 0.275,
     minWidth: 150,
@@ -175,9 +177,11 @@ export const COLUMNS_REQUERIMIENTO_PERSONAL = [
     field: "razon_estado",
     headerName: "Razón para el estado",
     renderCell: (params) => (
-      <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.razon_estado}
-      </Typography>
+      <Tooltip title={params.row.razon_estado}>
+        <Typography variant="body2" sx={{ color: "text.primary" }}>
+          {params.row.razon_estado}
+        </Typography>
+      </Tooltip>
     ),
-  }
+  },
 ];

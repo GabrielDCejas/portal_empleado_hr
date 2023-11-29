@@ -139,13 +139,13 @@ export const COLUMNS_ITEMS_EVALUACION = [
       </Tooltip>
     ),
   },
-  {
-    flex: 0.275,
-    minWidth: 175,
-    field: "valoracion_modal",
-    headerName: "Valoración",
-    renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
-  },
+  // {
+  //   flex: 0.275,
+  //   minWidth: 175,
+  //   field: "valoracion_modal",
+  //   headerName: "Valoración",
+  //   renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
+  // },
   {
     flex: 0.275,
     minWidth: 175,

@@ -38,7 +38,11 @@ const dataInicial = {
   loadingPlanSucesion: false,
   planSucesion: "",
   loadingCiclosPgd: false,
-  ciclosPgd: []
+  ciclosPgd: [],
+  clientes: [],
+  loadingClientes: false,
+  loadingSolicitudPuestoNuevo:false,
+  solicitudPuestoNuevo: [],
 };
 
 const GET_PAISES_LOADING = "GET_PAISES_LOADING";
@@ -120,6 +124,14 @@ const GET_PLAN_SUCESION_ERROR = "GET_PLAN_SUCESION_ERROR";
 const GET_CICLOS_PGD_LOADING = "GET_CICLOS_PGD_LOADING";
 const GET_CICLOS_PGD_EXITO = "GET_CICLOS_PGD_EXITO";
 const GET_CICLOS_PGD_ERROR = "GET_CICLOS_PGD_ERROR";
+
+const GET_CLIENTES_LOADING = "GET_CLIENTES_LOADING";
+const GET_CLIENTES_EXITO = "GET_CLIENTES_EXITO";
+const GET_CLIENTES_ERROR = "GET_CLIENTES_ERROR";
+
+const GET_SOLICITUD_PUESTO_LOADING = "GET_SOLICITUD_PUESTO_LOADING";
+const GET_SOLICITUD_PUESTO_EXITO = "GET_SOLICITUD_PUESTO_EXITO";
+const GET_SOLICITUD_PUESTO_ERROR = "GET_SOLICITUD_PUESTO_ERROR";
 
 export default function dataVariosReducers(state = dataInicial, action) {
   switch (action.type) {
@@ -259,6 +271,26 @@ export default function dataVariosReducers(state = dataInicial, action) {
       };
     case GET_CICLOS_PGD_ERROR:
       return { ...state, loadingCiclosPgd: action.loading };
+    case GET_CLIENTES_LOADING:
+      return { ...state, loadingClientes: action.loading };
+    case GET_CLIENTES_EXITO:
+      return {
+        ...state,
+        clientes: action.payload,
+        loadingClientes: action.loading,
+      };
+    case GET_CLIENTES_ERROR:
+      return { ...state, loadingClientes: action.loading };
+      case GET_SOLICITUD_PUESTO_LOADING:
+        return { ...state, loadingSolicitudPuestoNuevo: action.loading };
+      case GET_SOLICITUD_PUESTO_EXITO:
+        return {
+          ...state,
+          solicitudPuestoNuevo: action.payload,
+          loadingSolicitudPuestoNuevo: action.loading,
+        };
+      case GET_SOLICITUD_PUESTO_ERROR:
+        return { ...state, loadingSolicitudPuestoNuevo: action.loading };
     default:
       return { ...state };
   }
@@ -1163,7 +1195,7 @@ export const getEmpleados = (token) => async (dispatch) => {
       "<entity name='new_empleado'>" +
       "<attribute name='new_name' />" +
       "<attribute name='new_empleadoid' />" +
-      "<order attribute='new_numerolegajo' descending='false' />" +
+      "<order attribute='new_name' descending='false' />" +
       "<filter type='and'>" +
       "<condition attribute='statuscode' operator='eq' value='1' />" +
       "<condition attribute='new_fechanacimiento' operator='not-null' />" +
@@ -1442,6 +1474,105 @@ export const getCiclosPGD = (token) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: GET_CICLOS_PGD_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getClientes = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_CLIENTES_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_clientes";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_cliente">
+      <attribute name="new_clienteid" />
+      <attribute name="new_name" />
+      <attribute name="createdon" />
+      <order attribute="new_name" descending="false" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+      </filter>
+    </entity>
+  </fetch>`;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_CLIENTES_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_CLIENTES_ERROR,
+        loading: true,
+      });
+    }
+  }
+};
+
+export const getSolicitudPuestoNuevo = (token) => async (dispatch) => {
+  dispatch({
+    type: GET_SOLICITUD_PUESTO_LOADING,
+    loading: false,
+  });
+  if (!token) {
+    return;
+  } else {
+    const entidad = "new_solicituddepuestonuevos";
+    const fetchXML = `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_solicituddepuestonuevo">
+      <attribute name="new_name" />
+      <attribute name="new_perfildelpuesto" />
+      <attribute name="statuscode" />
+      <attribute name="new_solicituddepuestonuevoid" />
+      <order attribute="new_name" descending="false" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+      </filter>
+    </entity>
+  </fetch>`;
+
+    try {
+      const response = await axios.post(
+        `${UrlApi}api/consultafetch`,
+        {
+          entidad,
+          fetch: fetchXML,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({
+        type: GET_SOLICITUD_PUESTO_EXITO,
+        loading: true,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SOLICITUD_PUESTO_ERROR,
         loading: true,
       });
     }
