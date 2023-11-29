@@ -168,6 +168,7 @@ export const getRequerimientoPersonal = (token) => async (dispatch) => {
       <attribute name="new_descripcionproyecto" />
       <attribute name="new_empleadoaprobador1" />
       <attribute name="new_aprobador1" />
+      <attribute name="new_empleadosolicitante" />
         <order attribute="createdon" descending="true" />
         <filter type="and">
           <condition attribute="statecode" operator="eq" value="0" />
@@ -215,7 +216,7 @@ export const enviarRequerimientoPersonal = (token, datos, empleadoId) => async (
         .post(
           `${UrlApi}api/hroneclick/requerimientodepersonal`,
           {
-            new_empleadosolicitante: empleadoId,
+            new_empleadosolicitante: datos?.empleado?.value ? datos?.empleado?.value : "",
             new_cliente: datos?.clienteSelect?.value ? datos?.clienteSelect?.value : "",
             new_prioridad: datos?.prioridad?.value ? Number(datos?.prioridad?.value) : 0,
             new_puesto: datos?.puestoSelect?.value ? datos?.puestoSelect?.value : "",
@@ -278,7 +279,7 @@ export const enviarRequerimientoPersonal = (token, datos, empleadoId) => async (
   });
 };
 
-export const editarRequerimientoPersonal = (token, datos, empleadoId) => async (dispatch) => {
+export const editarRequerimientoPersonal = (token, datos) => async (dispatch) => {
   dispatch({
     type: EDITAR_REQUERIMIENTO_PERSONAL_LOADING,
     resultado: "LOADING",
@@ -290,8 +291,8 @@ export const editarRequerimientoPersonal = (token, datos, empleadoId) => async (
         .put(
           `${UrlApi}api/hroneclick/requerimientodepersonal`,
           {
-            new_solicituddecandidatoid: datos.id,
-            new_empleadosolicitante: empleadoId,
+            new_solicituddecandidatoid: datos.id, 
+            new_empleadosolicitante: datos?.empleado?.value ? datos?.empleado?.value : "",
             new_cliente: datos?.clienteSelect?.value ? datos?.clienteSelect?.value : "",
             new_prioridad: datos?.prioridad?.value ? Number(datos?.prioridad?.value) : 0,
             new_puesto: datos?.puestoSelect?.value ? datos?.puestoSelect?.value : "",

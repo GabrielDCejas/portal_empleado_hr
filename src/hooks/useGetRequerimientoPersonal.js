@@ -27,7 +27,7 @@ const useGetRequerimientoPersonal = () => {
           puesto: items["_new_puesto_value@OData.Community.Display.V1.FormattedValue"],
           cliente: items["_new_cliente_value@OData.Community.Display.V1.FormattedValue"],
           razon_estado: items["statuscode@OData.Community.Display.V1.FormattedValue"],
-          empleado: {label: items["_new_empleado_value@OData.Community.Display.V1.FormattedValue"], value: items["_new_empleado_value"]},
+          empleado: {label: items["_new_empleadosolicitante_value@OData.Community.Display.V1.FormattedValue"], value: items["_new_empleadosolicitante_value"]},
           clienteSelect: {label: items["_new_cliente_value@OData.Community.Display.V1.FormattedValue"], value: items["_new_cliente_value"]},
           prioridad: {label: items["new_prioridad@OData.Community.Display.V1.FormattedValue"], value: items["new_prioridad"]},
           puestoSelect: {label: items["_new_puesto_value@OData.Community.Display.V1.FormattedValue"], value: items["_new_puesto_value"]},
