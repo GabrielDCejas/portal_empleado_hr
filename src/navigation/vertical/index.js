@@ -62,8 +62,20 @@ const navigation = () => {
           },
         ]
       },
-      
+      {
+        title: 'Formacion',
+        icon: 'mdi:book-information-variant',
+        children: [
+          {
+            title: "Participante Por Evento",
+            icon: "mdi:calendar-check-outline",
+            path: "/participante-por-evento",
+          },
+        ]
+      },
     ]
   }
   
   export default navigation
+
+  

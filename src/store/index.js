@@ -11,6 +11,8 @@ import usuariosFirebaseReducer from "@/redux/usuariosFirebase";
 import propuestaReducers from "@/redux/propuestaMejoras";
 import evaluacionesReducers from "@/redux/evaluaciones";
 import solicitudesReducers from "@/redux/solicitudes";
+import eventosReducer from "@/redux/eventos";
+import datosSelectReducer from "@/redux/datosSelect";
 
 const middleware = [thunk];
 const composeEnhancers = (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
@@ -28,6 +30,8 @@ const store = createStore(
     propuesta: propuestaReducers,
     evaluaciones: evaluacionesReducers,
     solicitudes: solicitudesReducers,
+    eventos: eventosReducer,
+    datosSelect: datosSelectReducer
   }),
   composeEnhancers(applyMiddleware(...middleware))
 );
