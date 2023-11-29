@@ -251,6 +251,7 @@ const ParticipantePorEvento = ({ data, paramID, eventoCapacitacion, empleados, p
                 certificados.filter(element => element?.filename != null).map(item => {
                   return (
                     <ListItem
+                    key={item?.annotationid}
                       secondaryAction={
                         <DescargarNota value={item?.annotationid} />
                         // <IconButton>
