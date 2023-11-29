@@ -27,7 +27,6 @@ const renderClient = (params) => {
 };
 
 const RowOptions = (objeto) => {
-  console.log("objeto", objeto);
   const dispatch = useDispatch();
   // ** State
   const [anchorEl, setAnchorEl] = useState(null);

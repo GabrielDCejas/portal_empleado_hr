@@ -7,10 +7,11 @@ const useEditarItemsEvaluacion = () => {
   const { token } = useContext(AuthContext);
   const dispatch = useDispatch();
 
-  const editarItemEvaluacion = (datos, evaluaciondepgdid) => {
-    return dispatch(editarItemsEvaluacion(token, datos, evaluaciondepgdid))
+  const editarItemEvaluacion = (datos, evaluaciondepgdid, handleClose) => {
+    return dispatch(editarItemsEvaluacion(token, datos))
       .then(() => {
         dispatch(getItemsEvaluacion(token, evaluaciondepgdid));
+        handleClose()
       })
       .catch((error) => {
         console.error("Error:", error);

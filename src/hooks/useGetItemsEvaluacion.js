@@ -24,6 +24,7 @@ const useGetItemsEvaluacion = (id) => {
       itemsEvaluacionRedux.forEach((items) => {
         let item = {
           id: items.new_itemdeevaluaciondedesempeoid,
+          evaluaciondepgdid: id,
           competencia: items["_new_competencia_value@OData.Community.Display.V1.FormattedValue"],
           valoracion: items["new_valoracin@OData.Community.Display.V1.FormattedValue"],
           valoracion_lider: items["new_valoraciondellider@OData.Community.Display.V1.FormattedValue"],

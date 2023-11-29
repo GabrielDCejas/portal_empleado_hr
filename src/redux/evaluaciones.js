@@ -911,7 +911,7 @@ export const enviarItemsEvaluacion = (token, datos, evaluaciondepgdid) => async 
   });
 };
 
-export const editarItemsEvaluacion = (token, datos, evaluaciondepgdid) => async (dispatch) => {
+export const editarItemsEvaluacion = (token, datos) => async (dispatch) => {
   dispatch({
     type: EDITAR_ITEMS_EVALUACION_LOADING,
     resultado: "LOADING",

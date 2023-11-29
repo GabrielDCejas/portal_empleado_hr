@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { AuthContext } from "@/context/AuthContext";
 import ModalItemsEvaluacion from "@/pages/evaluaciones/evaluacion_pgd/modales/ModalItemsEvaluacion";
 import { eliminarItemsEvaluacion, getItemsEvaluacion } from "@/redux/evaluaciones";
+import ValoracionItem from "@/pages/evaluaciones/evaluacion_pgd/ValoracionItem";
 
 const renderClient = (params) => {
   const { row } = params;
@@ -141,12 +142,15 @@ export const COLUMNS_ITEMS_EVALUACION = [
   {
     flex: 0.275,
     minWidth: 175,
-    field: "valoracion",
+    field: "valoracion_modal",
     headerName: "Valoración",
-    renderCell: (params) => (
-      <Typography variant="body2" sx={{ color: "text.primary" }}>
-        {params.row.valoracion}
-      </Typography>
-    ),
+    renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
+  },
+  {
+    flex: 0.275,
+    minWidth: 175,
+    field: "valoracion_lider_modal",
+    headerName: "Valoración Líder",
+    renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_lider_modal"/>
   }
 ];
