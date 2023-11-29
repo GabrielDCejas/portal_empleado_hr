@@ -71,7 +71,7 @@ const ValoracionItem = ({ item, itemEvaluar }) => {
       <Box>
         <FormControl fullWidth>
           <InputLabel variant="standard" htmlFor="estadoValoracion">
-            Estado del relevamiento
+            Valoración
           </InputLabel>
           <NativeSelect
             value={defaultValues.value}
