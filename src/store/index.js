@@ -10,6 +10,7 @@ import cargasCursosReducers from "@/redux/cursos";
 import usuariosFirebaseReducer from "@/redux/usuariosFirebase";
 import propuestaReducers from "@/redux/propuestaMejoras";
 import evaluacionesReducers from "@/redux/evaluaciones";
+import solicitudesReducers from "@/redux/solicitudes";
 import eventosReducer from "@/redux/eventos";
 import datosSelectReducer from "@/redux/datosSelect";
 
@@ -28,6 +29,7 @@ const store = createStore(
     usuariosFirebase: usuariosFirebaseReducer,
     propuesta: propuestaReducers,
     evaluaciones: evaluacionesReducers,
+    solicitudes: solicitudesReducers,
     eventos: eventosReducer,
     datosSelect: datosSelectReducer
   }),

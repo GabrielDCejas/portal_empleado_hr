@@ -47,7 +47,18 @@ const navigation = () => {
           {
             title: "Evaluaciones de PGD",
             icon: "material-symbols-light:rate-review-outline",
-            path: "/evaluaciones",
+            path: "/evaluaciones/evaluacion_pgd",
+          },
+        ]
+      },
+      {
+        title: 'Solicitudes',
+        icon: 'carbon:request-quote',
+        children: [
+          {
+            title: "Requerimiento de Personal",
+            icon: "icon-park-outline:file-staff",
+            path: "/solicitudes/requerimiento_personal",
           },
         ]
       },
