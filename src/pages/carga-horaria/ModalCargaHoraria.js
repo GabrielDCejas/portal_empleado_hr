@@ -192,6 +192,7 @@ const ModalCargaHoraria = ({ open, handleClose, data, onSubmit, ver = null }) =>
                     rules={{ required: "Required!" }}
                     helperText="Por favor indica la fecha de Carga"
                     req={true}
+                    posicion="bottom"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
