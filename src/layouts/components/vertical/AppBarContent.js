@@ -10,7 +10,6 @@ import ModeToggler from "../../../@core/layouts/components/shared-components/Mod
 import UserDropdown from "../../../@core/layouts/components/shared-components/UserDropdown";
 import Image from "next/image";
 import hero from "../../../../public/images/Logo-Human-Blanco.png";
-import heroNegro from "../../../../public/images/Human Negro.png";
 
 const AppBarContent = (props) => {
   // ** Props

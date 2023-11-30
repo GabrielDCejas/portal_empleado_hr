@@ -7,18 +7,37 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import moment from "moment/moment";
 
-const CustomDateField = ({ name, label, rules, helperText, req = false, ...restProps }) => {
+const CustomDateField = ({
+  name,
+  label,
+  rules,
+  helperText,
+  posicion = "top",
+  req = false,
+  ...restProps
+}) => {
   const formState = useFormState();
 
   return (
     <Controller
       name={name}
-      render={({ field: { ref, onBlur, name, value, ...field }, fieldState }) => {
+      render={({
+        field: { ref, onBlur, name, value, ...field },
+        fieldState,
+      }) => {
         const formattedValue = value ? moment(value).format("YYYY-MM-DD") : "";
 
         return (
-          <FormControl variant="outlined" fullWidth margin="normal" color="success">
-            <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="es">
+          <FormControl
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            color="success"
+          >
+            <LocalizationProvider
+              dateAdapter={AdapterMoment}
+              adapterLocale="es"
+            >
               <DesktopDatePicker
                 {...field}
                 value={value || null}
@@ -38,6 +57,9 @@ const CustomDateField = ({ name, label, rules, helperText, req = false, ...restP
                     value={formattedValue} // Use formattedValue for the text field value
                   />
                 )}
+                PopperProps={{
+                  placement: posicion,
+                }}
               />
             </LocalizationProvider>
           </FormControl>

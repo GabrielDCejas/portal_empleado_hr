@@ -247,6 +247,7 @@ const ModalLicencia = ({ open, handleClose, data, onSubmit, ver = null }) => {
                       rules={{ required: "Required!" }}
                       helperText="Por favor indica la fecha de solicitud"
                       req={true}
+                      posicion="bottom"
                     />
                   ) : (
                     <CustomTextField

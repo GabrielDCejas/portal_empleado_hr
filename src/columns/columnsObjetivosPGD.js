@@ -70,12 +70,12 @@ const RowOptions = (objeto) => {
         <>
           <Tooltip title="Ver">
             <IconButton size="small" onClick={verTRayectoria}>
-              <Icon icon="mdi:eye-outline" fontSize={20} />
+              <Icon icon="mdi:eye-outline" fontSize={22} />
             </IconButton>
           </Tooltip>
           <Tooltip title="Eliminar">
             <IconButton size="small" onClick={handleRowOptionsClick}>
-              <Icon icon="mdi:trash-can-outline" fontSize={20} style={{ color: "#942020" }} />
+              <Icon icon="mdi:trash-can-outline" fontSize={22} style={{ color: "#942020" }} />
             </IconButton>
           </Tooltip>
         </>

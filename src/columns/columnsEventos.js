@@ -72,7 +72,7 @@ const RowOptions = ({ id }) => {
         PaperProps={{ style: { minWidth: "8rem" } }}
       >
         <MenuItem onClick={deleteRow} sx={{ "& svg": { mr: 2 } }}>
-          <Icon icon="mingcute:alert-fill" fontSize={20} style={{ color: "red" }} />
+          <Icon icon="mingcute:alert-fill" fontSize={22} style={{ color: "#942020" }} />
           Desea eliminar este registro ?
         </MenuItem>
       </Menu>
