@@ -19,20 +19,22 @@ const useGetOrganigrama = () => {
     dispatch(obtenerUsuariosFirebase());
   }, []);
 
+  console.log("organigramaRedux", organigramaRedux)
+
   useEffect(() => {
     if (organigramaRedux?.length > 0 && fotosUsuario?.length > 0 && loadingOrganigramaSelect) {
       const organigrama = [];
       organigramaRedux.forEach((items) => {
         let item = {
-          id: items["organigrama.new_responsable"] + items["new_name"],
+          id: items["_new_responsable_value"] + items["new_name"],
           puesto: items["new_name"],
-          segmentoUnidad: items["organigrama.new_name"],
-          responsable: items["organigrama.new_responsable@OData.Community.Display.V1.FormattedValue"],
-          unidadSuperior: items["organigrama.new_unidadsuperior@OData.Community.Display.V1.FormattedValue"],
-          IdArbol: items["organigrama.new_unidadorganigramaid"],
-          unidadSuperiorId: items["organigrama.new_unidadsuperior"] ? items["organigrama.new_unidadsuperior"] : null
+          segmentoUnidad: items["new_tipo@OData.Community.Display.V1.FormattedValue"],
+          responsable: items["_new_responsable_value@OData.Community.Display.V1.FormattedValue"],
+          unidadSuperior: items["_new_unidadsuperior_value@OData.Community.Display.V1.FormattedValue"],
+          IdArbol: items["new_unidadorganigramaid"],
+          unidadSuperiorId: items["_new_unidadsuperior_value"] ? items["_new_unidadsuperior_value"] : null
         };
-        const foto = fotosUsuario.find((foto) => foto.empleadoid === items["organigrama.new_responsable"]);
+        const foto = fotosUsuario.find((foto) => foto.empleadoid === items["_new_responsable_value"]);
         if (foto) {
           item.foto = foto.photoURL;
         }

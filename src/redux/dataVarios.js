@@ -987,26 +987,22 @@ export const getOrganigramas = (token) => async (dispatch) => {
   if (!token) {
     return;
   } else {
-    const entidad = "new_cargos";
+    const entidad = "new_unidadorganigramas";
     const fetchXML =
-      "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
-      "<entity name='new_cargo'>" +
-      "<attribute name='new_name' />" +
-      "<attribute name='createdon' />" +
-      "<attribute name='new_cargoid' />" +
-      "<order attribute='new_name' descending='false' />" +
-      "<link-entity name='new_unidadorganigrama' from='new_unidadorganigramaid' to='new_unidadorganizativageneral' link-type='inner' alias='organigrama'>" +
-      "<attribute name='new_unidadorganigramaid' />" +
-      "<attribute name='new_unidadsuperior' />" +
-      "<attribute name='new_responsable' />" +
-      "<attribute name='new_name' />" +
-      "<attribute name='new_idunidadorganigrama' />" +
-      "<filter type='and'>" +
-      "<condition attribute='new_unidadorganigramaid' operator='not-null' />" +
-      "</filter>" +
-      "</link-entity>" +
-      "</entity>" +
-      "</fetch>";
+    `<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+    <entity name="new_unidadorganigrama">
+      <attribute name="new_name" />
+      <attribute name="new_unidadsuperior" />
+      <attribute name="new_responsable" />
+      <attribute name="new_idunidadorganigrama" />
+      <attribute name="new_tipo" />
+      <attribute name="new_unidadorganigramaid" />
+      <order attribute="new_tipo" descending="false" />
+      <filter type="and">
+        <condition attribute="statecode" operator="eq" value="0" />
+      </filter>
+    </entity>
+  </fetch>`;
 
     try {
       const response = await axios.post(
