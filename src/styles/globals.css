@@ -22,3 +22,57 @@ code:not([class*='language-']):after {
 code[class*='language-'] {
   padding: 0;
 }
+
+.fc-day-grid .fc-row .fc-content-skeleton {
+  height: 50px!important;
+}
+
+.fc-day-grid .fc-row .fc-content-skeleton table {
+  height: 50px!important;
+}
+
+/* Estilos del calendario */
+.bg-custom-green {
+  background-color: rgba(40, 167, 69, 0.5); /* Verde con 50% de transparencia */
+  border-color:rgba(40, 167, 69, 0.5);
+}
+
+.bg-custom-red {
+  background-color: rgba(220, 53, 69, 0.5); /* Rojo con 50% de transparencia */
+  border-color:rgba(220, 53, 69, 0.5);
+}
+
+.bg-custom-yellow {
+  background-color: rgba(255, 193, 7, 0.5); /* Amarillo con 50% de transparencia */
+  border-color:rgba(255, 193, 7, 0.5);
+}
+
+.bg-custom-turquoise {
+  background-color: rgba(23, 162, 184, 0.5); /* Turquesa con 50% de transparencia */
+  border-color:rgba(23, 162, 184, 0.5);
+}
+
+.bg-custom-orange {
+  background-color: rgba(232, 111, 59, 0.5); /* Naranja con 50% de transparencia */
+  border-color:rgba(232, 111, 59, 0.5);
+}
+.bg-custom-azul {
+  background-color: rgba(59, 99, 232, 0.5); /* Naranja con 50% de transparencia */
+  border-color:rgba(59, 99, 232, 0.5);
+}
+.bg-custom-purple {
+  background-color: rgba(128, 0, 128, 0.5);
+  border-color:rgba(128, 0, 128, 0.5) ;
+}
+.bg-custom-custom {
+  background-color: rgba(181, 146, 236, 0.5);
+  border-color:rgba(181, 146, 236, 0.5) ;
+}
+.bg-custom-blue {
+  background-color: rgba(0, 0, 255, 0.4); /* Azul con 50% de transparencia */
+  border-color:rgba(0, 0, 255, 0.4);
+}
+
+.fc-event-title-container{
+  font-size: .7rem;
+}
