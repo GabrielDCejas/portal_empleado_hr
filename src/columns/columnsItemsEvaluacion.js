@@ -65,6 +65,8 @@ const RowOptions = (objeto) => {
     handleRowOptionsClose();
   };
 
+  console.log("objeto", objeto)
+
   return (
     <>
       {objeto?.lider_id == user?.empleadoid && (
@@ -139,13 +141,39 @@ export const COLUMNS_ITEMS_EVALUACION = [
       </Tooltip>
     ),
   },
-  // {
-  //   flex: 0.275,
-  //   minWidth: 175,
-  //   field: "valoracion_modal",
-  //   headerName: "Valoración",
-  //   renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
-  // },
+  {
+    flex: 0.275,
+    minWidth: 175,
+    field: "valoracion_modal",
+    headerName: "Valoración",
+    renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
+  },
+];
+
+export const COLUMNS_ITEMS_EVALUACION_LIDER = [
+  {
+    flex: 0.1,
+    minWidth: 150,
+    field: "actions",
+    headerName: "Acciones",
+    renderCell: (params) => {
+      const { row } = params;
+      return RowOptions(row);
+    },
+  },
+  {
+    flex: 0.275,
+    minWidth: 250,
+    field: "competencia",
+    headerName: "Competencia/Objetivo",
+    renderCell: (params) => (
+      <Tooltip title={params.row.competencia}>
+        <Typography variant="body2" sx={{ color: "text.primary" }}>
+          {params.row.competencia}
+        </Typography>
+      </Tooltip>
+    ),
+  },
   {
     flex: 0.275,
     minWidth: 175,

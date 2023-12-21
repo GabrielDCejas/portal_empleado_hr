@@ -39,6 +39,7 @@ const useGetEvaluacionesPGD = () => {
           lider: items["_new_lder_value@OData.Community.Display.V1.FormattedValue"],
           lider_select: {label: items["_new_lder_value@OData.Community.Display.V1.FormattedValue"], value: items["_new_lder_value"]},
           liderId: items["_new_lder_value"],
+          isLider: false,
           instancia: items["statuscode@OData.Community.Display.V1.FormattedValue"],
           estado_autoevaluacion: items["new_estadodelaautoevaluacin@OData.Community.Display.V1.FormattedValue"],
           estado_evaluacion_lider: items["new_estadodelaevaluacindellder@OData.Community.Display.V1.FormattedValue"],

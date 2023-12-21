@@ -18,7 +18,7 @@ import Table from "@/@core/components/table/Table";
 import useGetObjetivosPGD from "@/hooks/useGetObjetivosPGD";
 import { COLUMNS_OBJETIVOS_PGD } from "@/columns/columnsObjetivosPGD";
 import useGetItemsEvaluacion from "@/hooks/useGetItemsEvaluacion";
-import { COLUMNS_ITEMS_EVALUACION } from "@/columns/columnsItemsEvaluacion";
+import { COLUMNS_ITEMS_EVALUACION, COLUMNS_ITEMS_EVALUACION_LIDER } from "@/columns/columnsItemsEvaluacion";
 import ModalObjetivos from "./modales/ModalObjetivos";
 import useCargarObjetivos from "@/hooks/useCargarObjetivos";
 import { AuthContext } from "@/context/AuthContext";
@@ -221,7 +221,7 @@ const DefinicionDeObjetivos = ({ data }) => {
                   {loadingItemsEvaluacion ? (
                     <Table
                       data={itemsEvaluacion}
-                      columns={COLUMNS_ITEMS_EVALUACION}
+                      columns={data?.liderId == user?.empleadoid ? COLUMNS_ITEMS_EVALUACION_LIDER : COLUMNS_ITEMS_EVALUACION}
                       name={"Evaluación de PGD"}
                       addRow={data?.liderId == user?.empleadoid}
                       toggle={openModalItemsEvaluacion}
@@ -446,6 +446,7 @@ const DefinicionDeObjetivos = ({ data }) => {
           <ModalItemsEvaluacion
             open={openItemsEvaluacion}
             liderId={data.liderId}
+            isLider={data.isLider}
             handleClose={handleCloseModalItemsEvaluacion}
             onSubmit={handleCargarItemsEvaluacion}
           />

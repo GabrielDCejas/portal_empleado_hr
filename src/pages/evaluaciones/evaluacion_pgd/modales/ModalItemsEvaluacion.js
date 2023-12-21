@@ -40,23 +40,25 @@ const opcionesTipoItemEvaluacion = [
 ];
 
 const opcionesValoracionCompetencias = [
-    { value: 100000000, label: "Por Debajo De Las Expectativas" },
-    { value: 100000001, label: "Cumple Parcialmente Las Expectativas" },
-    { value: 100000002, label: "Cumple Las Expectativas" },
-    { value: 100000003, label: "Por Encima De Las Expectativas" },
-    { value: 100000004, label: "Sobresaliente" },
-  ];
+  { value: 100000000, label: "Por Debajo De Las Expectativas" },
+  { value: 100000001, label: "Cumple Parcialmente Las Expectativas" },
+  { value: 100000002, label: "Cumple Las Expectativas" },
+  { value: 100000003, label: "Por Encima De Las Expectativas" },
+  { value: 100000004, label: "Sobresaliente" },
+];
 
-  const opcionesTipoInstancia = [
-    { value: 100000000, label: "Autoevaluación" },
-    { value: 100000001, label: "Evaluación del Líder" },
-    { value: 100000002, label: "Feedback" },
-  ];
+const opcionesTipoInstancia = [
+  { value: 100000000, label: "Autoevaluación" },
+  { value: 100000001, label: "Evaluación del Líder" },
+  { value: 100000002, label: "Feedback" },
+];
 
-const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, liderId, evaluacionPgdId = null }) => {
+const ModalItemsEvaluacion = ({ open, handleClose, data, isLider, onSubmit, ver = null, liderId, evaluacionPgdId = null }) => {
   const { user } = useContext(AuthContext);
 
-  const editarItemEvaluacion = useEditarItemsEvaluacion()
+  console.log("isLider", isLider)
+
+  const editarItemEvaluacion = useEditarItemsEvaluacion();
 
   const loadingCargarItemsEvaluacion = useSelector((store) => store.evaluaciones.loadingCargarItemsEvaluacion);
   const loadingEditarItemsEvaluacion = useSelector((store) => store.evaluaciones.loadingEditarItemsEvaluacion);
@@ -71,12 +73,12 @@ const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, l
     shouldUnregister: false,
     mode: "onChange",
     defaultValues: {
-        tipoItemEvaluacion: null,
-        competenciaObjetivo: null,
-        valoracion_modal:null,
-        valoracion_lider_modal:null,
-        tipoInstancia: null,
-        planSucesion:null
+      tipoItemEvaluacion: null,
+      competenciaObjetivo: null,
+      valoracion_modal: null,
+      valoracion_lider_modal: null,
+      tipoInstancia: null,
+      planSucesion: null,
     },
   });
 
@@ -92,7 +94,7 @@ const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, l
     onSubmit(datos);
   };
   const editar = (datos) => {
-    editarItemEvaluacion(datos, evaluacionPgdId)
+    editarItemEvaluacion(datos, evaluacionPgdId);
   };
 
   if (open) {
@@ -148,22 +150,25 @@ const ModalItemsEvaluacion = ({ open, handleClose, data, onSubmit, ver = null, l
                     lab="Competencia/Objetivo"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <CustomSearchSelect
-                    options={opcionesValoracionCompetencias}
-                    type="text"
-                    name="valoracion_modal"
-                    lab="Valoración"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <CustomSearchSelect
-                    options={opcionesValoracionCompetencias}
-                    type="text"
-                    name="valoracion_lider_modal"
-                    lab="Valoración del Líder"
-                  />
-                </Grid>
+                { (data?.lider_id == user?.empleadoid) || isLider ? (
+                  <Grid item xs={12} sm={6}>
+                    <CustomSearchSelect
+                      options={opcionesValoracionCompetencias}
+                      type="text"
+                      name="valoracion_lider_modal"
+                      lab="Valoración del Líder"
+                    />
+                  </Grid>
+                ) : (
+                  <Grid item xs={12} sm={6}>
+                    <CustomSearchSelect
+                      options={opcionesValoracionCompetencias}
+                      type="text"
+                      name="valoracion_modal"
+                      lab="Valoración"
+                    />
+                  </Grid>
+                )}
                 {/* <Grid item xs={12} sm={6}>
                   <CustomSearchSelect
                     options={opcionesTipoInstancia}
