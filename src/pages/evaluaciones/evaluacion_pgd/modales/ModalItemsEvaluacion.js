@@ -56,8 +56,6 @@ const opcionesTipoInstancia = [
 const ModalItemsEvaluacion = ({ open, handleClose, data, isLider, onSubmit, ver = null, liderId, evaluacionPgdId = null }) => {
   const { user } = useContext(AuthContext);
 
-  console.log("isLider", isLider)
-
   const editarItemEvaluacion = useEditarItemsEvaluacion();
 
   const loadingCargarItemsEvaluacion = useSelector((store) => store.evaluaciones.loadingCargarItemsEvaluacion);

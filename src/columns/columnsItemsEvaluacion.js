@@ -148,6 +148,13 @@ export const COLUMNS_ITEMS_EVALUACION = [
     headerName: "Valoración",
     renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
   },
+  {
+    flex: 0.275,
+    minWidth: 175,
+    field: "valoracion_lider_modal",
+    headerName: "Valoración Líder",
+    renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_lider_modal"/>
+  }
 ];
 
 export const COLUMNS_ITEMS_EVALUACION_LIDER = [
@@ -173,6 +180,13 @@ export const COLUMNS_ITEMS_EVALUACION_LIDER = [
         </Typography>
       </Tooltip>
     ),
+  },
+  {
+    flex: 0.275,
+    minWidth: 175,
+    field: "valoracion_modal",
+    headerName: "Valoración",
+    renderCell: (params) => <ValoracionItem item={params.row} itemEvaluar="valoracion_modal"/>
   },
   {
     flex: 0.275,

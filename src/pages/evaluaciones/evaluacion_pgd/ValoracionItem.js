@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
   CircularProgress,
-  Paper,
+  TextField,
   FormControl,
   InputLabel,
   NativeSelect,
@@ -20,6 +20,7 @@ import useEditarItemsEvaluacion from "@/hooks/useEditarItemsEvaluacion";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
+import { AuthContext } from "@/context/AuthContext";
 
 const opcionesValoracionCompetencias = [
   { value: 100000000, label: "Por Debajo De Las Expectativas" },
@@ -30,20 +31,21 @@ const opcionesValoracionCompetencias = [
 ];
 
 const ValoracionItem = ({ item, itemEvaluar }) => {
+  const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [defaultValues, setDefaultValues] = useState({ label: "", value: 0 });
-  const [id, setid] = useState("")
-  const [evaluacionpgdid, setEvaluacionpgdid] = useState("")
+  const [id, setid] = useState("");
+  const [evaluacionpgdid, setEvaluacionpgdid] = useState("");
 
   const editarItemEvaluacion = useEditarItemsEvaluacion();
 
   const loadingEditarItemsEvaluacion = useSelector((store) => store.evaluaciones.loadingEditarItemsEvaluacion);
 
   useEffect(() => {
-    if(item){
-        setid(item.id)
-        setDefaultValues(item[itemEvaluar]);
-        setEvaluacionpgdid(item.evaluaciondepgdid)
+    if (item) {
+      setid(item.id);
+      setDefaultValues(item[itemEvaluar]);
+      setEvaluacionpgdid(item.evaluaciondepgdid);
     }
   }, [item]);
 
@@ -57,7 +59,7 @@ const ValoracionItem = ({ item, itemEvaluar }) => {
   };
 
   const setRelevamiento = () => {
-    editarItemEvaluacion({ [itemEvaluar]: defaultValues, id: id }, evaluacionpgdid, handleClose)
+    editarItemEvaluacion({ [itemEvaluar]: defaultValues, id: id }, evaluacionpgdid, handleClose);
   };
 
   const handleChange = (event) => {
@@ -85,15 +87,19 @@ const ValoracionItem = ({ item, itemEvaluar }) => {
               style: { fontSize: ".8rem" },
             }}
             sx={{
-                '& .MuiNativeSelect-select': {
-                  paddingRight: 5,
-                  paddingLeft: 5,
-                }
-              }}
+              "& .MuiNativeSelect-select": {
+                paddingRight: 5,
+                paddingLeft: 5,
+              },
+            }}
+            disabled={
+              (item?.lider_id != user?.empleadoid && itemEvaluar === "valoracion_lider_modal") ||
+              (item?.lider_id == user?.empleadoid && itemEvaluar === "valoracion_modal")
+            }
           >
             {opcionesValoracionCompetencias.map((item) => {
               return (
-                <option key={item.value} value={item.value} >
+                <option key={item.value} value={item.value}>
                   {item.label}
                 </option>
               );
@@ -102,26 +108,26 @@ const ValoracionItem = ({ item, itemEvaluar }) => {
         </FormControl>
       </Box>
       <Dialog open={open} onClose={handleClose}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <DialogTitle id="responsive-dialog-title">
-              <Typography sx={{ fontSize: { xs: ".7rem", md: ".9rem" } }}>
-                {" "}
-                {`Desea cambiar la valoración a (${defaultValues.label})`}
-              </Typography>
-            </DialogTitle>
-            <Tooltip title={<Typography sx={{ color: "#fff" }}>Cerrar</Typography>}>
-              <IconButton edge="end" color="warning" onClick={handleClose} aria-label="close" sx={{ mr: 2 }}>
-                <Icon color="red" icon="material-symbols:close" />
-              </IconButton>
-            </Tooltip>
-          </Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <DialogTitle id="responsive-dialog-title">
+            <Typography sx={{ fontSize: { xs: ".7rem", md: ".9rem" } }}>
+              {" "}
+              {`Desea cambiar la valoración a (${defaultValues.label})`}
+            </Typography>
+          </DialogTitle>
+          <Tooltip title={<Typography sx={{ color: "#fff" }}>Cerrar</Typography>}>
+            <IconButton edge="end" color="warning" onClick={handleClose} aria-label="close" sx={{ mr: 2 }}>
+              <Icon color="red" icon="material-symbols:close" />
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
         <DialogActions
           sx={{
             display: "flex",
