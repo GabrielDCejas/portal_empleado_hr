@@ -145,9 +145,6 @@ const ModalRequerimientoPersonal = ({ open, handleClose, data, onSubmit, ver = n
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <CustomSearchSelect options={empleados} type="text" name="empleado" lab="Empleado" />
-                </Grid>
-                <Grid item xs={12} sm={4}>
                   <CustomSearchSelect options={opcionesPrioridad} type="text" name="prioridad" lab="Prioridad" />
                 </Grid>
                 <Grid item xs={12} sm={4}>
