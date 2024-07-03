@@ -190,6 +190,7 @@ const Register = () => {
           errorMessage = "Falta el iframe de inicio al registrar la cuenta.";
           break;
         default:
+          errorMessage = "No exite uan cuenta con ese correo en nuestro sistema"
           // Puedes agregar más casos según sea necesario para otros códigos de error
           break;
       }

@@ -105,7 +105,7 @@ const AuthProvider = ({ children }) => {
     try {
       let responseContac = null;
       const entidad = "new_empleados";
-      const fetch = `<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+      const fetch = `
         <entity name='new_empleado'>
           <attribute name='new_name' />
           <attribute name='new_correoelectronico' />
@@ -116,11 +116,10 @@ const AuthProvider = ({ children }) => {
             <condition attribute='new_correoelectronico' operator='eq' value='${params.email}' />
           </filter>
         </entity>
-      </fetch>
       `;
       try {
         responseContac = await axios.post(
-          `${UrlApi}api/consultafetch`,
+          `${UrlApi}api/consultafetchs`,
           {
             entidad: entidad,
             fetch: fetch,
@@ -169,7 +168,7 @@ const AuthProvider = ({ children }) => {
     try {
       let responseContac = null;
       const entidad = "new_empleados";
-      const fetch = `<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+      const fetch = `
         <entity name='new_empleado'>
           <attribute name='new_name' />
           <attribute name='new_correoelectronico' />
@@ -180,12 +179,11 @@ const AuthProvider = ({ children }) => {
             <condition attribute='new_correoelectronico' operator='eq' value='${params.email}' />
           </filter>
         </entity>
-      </fetch>
       `;
 
       try {
         responseContac = await axios.post(
-          `${UrlApi}api/consultafetch`,
+          `${UrlApi}api/consultafetchs`,
           {
             entidad: entidad,
             fetch: fetch,

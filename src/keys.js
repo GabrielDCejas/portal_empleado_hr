@@ -7,6 +7,9 @@ const UrlApi = "https://hw365api.azurewebsites.net/";
 const authMail = "admin@hroneclick.com";
 const authPass = "HROneclick.2023";
 
+// const authMail = "admin@hwapplications.com";
+// const authPass = "Hwa.2023$";
+
 //Localhost
 //const RecaptchaKey = "6LeALiAcAAAAABv5WAeRHUmaf5GfqNSBYn8wTKON";
 

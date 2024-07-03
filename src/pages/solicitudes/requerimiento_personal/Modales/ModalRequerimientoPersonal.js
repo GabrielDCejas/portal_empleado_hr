@@ -34,9 +34,10 @@ import useGetSolicitudPuestoNuevo from "@/hooks/useGetSolicitudPuestoNuevo";
 import useEditarRequerimiento from "@/hooks/useEditarRequerimiento";
 
 const opcionesPrioridad = [
-  { value: 100000000, label: "1" },
-  { value: 100000001, label: "2" },
-  { value: 100000002, label: "3" },
+  { value: 100000000, label: "Urgente" },
+  { value: 100000001, label: "Alta" },
+  { value: 100000002, label: "Media" },
+  { value: 100000003, label: "Baja" },
 ];
 const opcionesModalidadContratacion = [
   { value: 100000000, label: "Freelance" },
@@ -62,9 +63,7 @@ const ModalRequerimientoPersonal = ({ open, handleClose, data, onSubmit, ver = n
   const loadingEditarRequerimiento = useSelector((store) => store.solicitudes.loadingEditarRequerimiento);
 
   const { empleados } = useGetEmpleados();
-  const { clientes } = useGetClientes();
   const { puestos } = useGetPuestos();
-  const { proyectos } = useGetProyectos();
   const { solicitudPuestoNuevo } = useGetSolicitudPuestoNuevo();
 
   const [fullWidth, setFullWidth] = useState(true);
@@ -75,11 +74,9 @@ const ModalRequerimientoPersonal = ({ open, handleClose, data, onSubmit, ver = n
     mode: "onChange",
     defaultValues: {
       empleado: null,
-      clienteSelect: null,
       prioridad: null,
       puestoSelect: null,
       perfil: null,
-      proyecto: null,
       vacante: null,
       cantidad_mensuales: null,
       modalidad_contratacion: null,
@@ -151,19 +148,13 @@ const ModalRequerimientoPersonal = ({ open, handleClose, data, onSubmit, ver = n
                   <CustomSearchSelect options={empleados} type="text" name="empleado" lab="Empleado" />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <CustomSearchSelect options={clientes} type="text" name="clienteSelect" lab="Cliente" />
-                </Grid>
-                <Grid item xs={12} sm={4}>
                   <CustomSearchSelect options={opcionesPrioridad} type="text" name="prioridad" lab="Prioridad" />
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   <CustomSearchSelect options={puestos} type="text" name="puestoSelect" lab="Puesto" />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <CustomTextField Component={TextField} type="text" label="Perfil" name="perfil" />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <CustomSearchSelect options={proyectos} type="text" name="proyecto" lab="Proyecto" />
+                  <CustomTextField Component={TextField} type="text" label="Nombre de la Búsqueda" name="perfil" />
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   <CustomTextField Component={TextField} type="number" label="Vacante" name="vacante" />
